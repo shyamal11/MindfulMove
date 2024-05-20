@@ -1,5 +1,5 @@
 import React from 'react'
-import trainer from "../assets/img/trainer.png"
+import trainer from "../assets/img/trainer.jpg"
 import "../styles/start.css";
 
 const Start = () => {

@@ -81,7 +81,7 @@ margin-bottom: 20px;
     z-index: 10;
 }
 .box__img img{
-    width: 123%;
+    width: 100%;
 }
 .heart__rate{
     position: absolute;

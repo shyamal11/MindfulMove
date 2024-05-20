@@ -102,7 +102,7 @@ const Header = () => {
             <div className="logo__img">
               <img src={logo} alt="" />
             </div>
-            <h2>Health & Fitness</h2>
+            <h2>PeacePath</h2>
           </div>
           <div className="navigation">
             <ul className="menu">
