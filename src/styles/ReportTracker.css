@@ -1,0 +1,46 @@
+.track-fitness-container {
+  padding: 20px;
+  margin: auto;
+  max-width: 800px;
+}
+
+.track-fitness-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.mental-health-data {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chart-container {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+}
+
+.table-container th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}

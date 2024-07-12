@@ -1,9 +1,10 @@
-import React,{useEffect, useRef,useContext, useState} from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/header.css";
 import logo from "../assets/img/Health___Fitness.png";
 import { NavLink } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 import { AuthContext } from "./AuthContextProvider";
+import AuthModal from "./modal";
 
 const nav__links = [
   {
@@ -24,109 +25,92 @@ const nav__links = [
   },
 ];
 
-
 const Header = () => {
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+  const { logout, user } = useContext(AuthContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const {filter,setFilter}=useContext(AuthContext);
-
-  const isUserLoggedIn=()=>{
-  // console.log("Rohan2",isAuthenticated);
-    if(isAuthenticated){
-      console.log("user is Authenticated verifying user");
-      verifyUser();
-    }else{
-      console.log("No user is logged in");
+  const headerRef = useRef(null);
+  const headerFunc = () => {
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+      headerRef.current.classList.add("sticky__header");
+    } else {
+      headerRef.current.classList.remove("sticky__header");
     }
-  }
+  };
 
-  const verifyUser=()=>{
-    // console.log(user.name)
-    fetch(`https://healthandfitness.onrender.com/data`).then((res)=>{
-      return res.json();
-    }).then((data)=>{
-      // console.log(user);
-      let filteredData=data.filter((el)=>el.user==user.name);
-      // console.log(filteredData);
-      setFilter(filteredData);
-      if(filteredData.length<1){
-        let obj={
-          "id": Math.floor(Math.random() * 100),
-          "user": user.name,
-          "userdata": []
-        }
-        fetch(`https://healthandfitness.onrender.com/data`,{
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json",
-          },
-          body:JSON.stringify(obj) 
-        })
-        setFilter([obj]);
+  useEffect(() => {
+    window.addEventListener("scroll", headerFunc);
+
+    return () => window.removeEventListener("scroll", headerFunc);
+  }, []);
+
+  useEffect(() => {
+    const handleStorageEvent = (event) => {
+      if (event.key === "logout-event") {
+        logout();
+        navigate('/'); // Redirect to the home page after logout
       }
-    })
-  }
+    };
 
-    const headerRef =useRef(null);
-    const headerFunc=()=>{
-      if(document.body.scrollTop>80 || document.documentElement.scrollTop>80){
-        headerRef.current.classList.add("sticky__header");
-      }  else{
-        headerRef.current.classList.remove("sticky__header");
-      }
-    }
-    useEffect(()=>{
-        window.addEventListener("scroll",headerFunc);
+    window.addEventListener("storage", handleStorageEvent);
 
-        return()=>window.removeEventListener("scroll",headerFunc);
-    },[])
+    return () => {
+      window.removeEventListener("storage", handleStorageEvent);
+    };
+  }, [logout, navigate]);
 
+  const handleLogOut = () => {
+    localStorage.setItem("logout-event", Date.now());
+    logout();
+   // Redirect to the home page after logout
+  };
 
-    useEffect(()=>{
-      isUserLoggedIn();
-    },[setFilter,isAuthenticated])
-
-    const handleLogOut=()=>{
-      logout({ returnTo: window.location.origin })
-    }
-
-    const handleLogIn=()=>{
-      loginWithRedirect();
-    }
+  const handleLogIn = () => {
+    setIsModalOpen(true);
+  };
 
   return (
-    <header className="header" ref={headerRef}>
-      <div className="container">
-        <div className="nav__wrapper">
-          <div className="logo">
-            <div className="logo__img">
-              <img src={logo} alt="" />
+    <>
+      <header className="header" ref={headerRef}>
+        <div className="container">
+          <div className="nav__wrapper">
+            <div className="logo">
+              <div className="logo__img">
+                <img src={logo} alt="" />
+              </div>
+              <h2>PeacePath</h2>
             </div>
-            <h2>PeacePath</h2>
-          </div>
-          <div className="navigation">
-            <ul className="menu">
-              {nav__links.map((item) => (
-                // <li className="nav__item">
-                //   <a href={item.path}>{item.display}</a>
-                // </li>
-                <NavLink className="nav__item" key={item.path} to={item.path}>{item.display}</NavLink>
-              ))}
-            </ul>
-          </div>
-          <div className="nav__right">
-          {isAuthenticated && (
-              <p className="nav__item"> {user.name} </p>
-          )}
-            {isAuthenticated?<button className="register__btn" onClick={handleLogOut}>Log Out</button>:
-            <button className="register__btn" onClick={handleLogIn}>Log In</button>}
-            <span className="mobile__menu">
-              <i className="ri-menu-line"></i>
-            </span>
+            <div className="navigation">
+              <ul className="menu">
+                {nav__links.map((item) => (
+                  <NavLink className="nav__item" key={item.path} to={item.path}>
+                    {item.display}
+                  </NavLink>
+                ))}
+              </ul>
+            </div>
+            <div className="nav__right">
+              {user && <p className="nav__item"> {user.username} </p>}
+
+              {user ? (
+                <button className="register__btn" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              ) : (
+                <button className="register__btn" onClick={handleLogIn}>
+                  Log In
+                </button>
+              )}
+              <span className="mobile__menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <AuthModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} />
+    </>
   );
 };
 

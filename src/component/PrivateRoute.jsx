@@ -3,9 +3,8 @@ import { useContext } from 'react'
 import { AuthContext } from './AuthContextProvider'
 import { useAuth0 } from "@auth0/auth0-react";
 
-const PrivateRoute = ({children}) => {
-    const {isAuth} = useContext(AuthContext);
-    const {isAuthenticated,loginWithRedirect} = useAuth0();
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    const { isAuthenticated, authLoading } = useContext(AuthContext);
 
     // const navigate = useNavigate();
     if(isAuthenticated){

@@ -1,0 +1,116 @@
+.questionnaires-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for container */
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #007bff; /* Blue color for title */
+}
+
+.page-description {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555; /* Dark gray color for description */
+}
+
+.questionnaire {
+ 
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.questionnaire .phq9,
+.questionnaire .gad7 {
+  flex: 2;
+  margin-right: 20px;
+}
+
+.questionnaire h3 {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.questions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+
+.question {
+  margin-bottom: 15px;
+}
+
+.question label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.question select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.report-popup {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.report-popup h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.report-popup p {
+  margin-bottom: 15px;
+}
+
+.report-actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.report-actions button {
+  margin-right: 10px;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+.success-message {
+  color: #28a745;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,0 +1,198 @@
+.bot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .bot-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .bot-toggle:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+  }
+  
+  .bot-icon {
+    font-size: 28px;
+  }
+  
+  .bot-window {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 350px;
+    height: 500px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(0);
+    transform-origin: bottom right;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+  }
+  
+  .bot-window.open {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .bot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(45deg, #164B60, #2b8db4); /* Gradient background */
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .bot-title {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .bot-title img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Ensure it's round */
+    margin-right: 10px; /* Adjust margin as needed */
+  }
+  
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    outline: none;
+  }
+  
+  .bot-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 10px 10px;
+  }
+  
+  .messages {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .message {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    max-width: 70%;
+    word-wrap: break-word;
+  }
+  
+  .message.user {
+    align-self: flex-end; /* Align user message to the right */
+    
+    color: black;
+    border: 2px solid #164B60; /* Add a border with the desired color and thickness */
+    border-radius: 20px; /* Add rounded corners to match the existing style */
+  }
+  
+  .message.bot {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: black;
+    border-radius: 5px;
+  }
+  
+  .message.typing-indicator {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: black;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .message.typing-indicator span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    animation: blink 1.4s infinite both;
+  }
+  
+  @keyframes blink {
+    0%, 80%, 100% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ccc;
+  }
+  
+  .input-container input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-container input[type="text"]:focus {
+    border-color: #007bff;
+  }
+  
+  .input-container button {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #164B60, #2b8db4); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .input-container button:hover {
+    background: linear-gradient(45deg, #0056b3, #0099cc); /* Gradient background on hover */
+  }
+  

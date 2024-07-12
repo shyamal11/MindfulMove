@@ -78,7 +78,7 @@ margin-bottom: 20px;
     position: absolute;
     top: -7%;
     left: -13%;
-    z-index: 10;
+    z-index: 900;
 }
 .box__img img{
     width: 100%;
