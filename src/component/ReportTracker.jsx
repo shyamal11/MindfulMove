@@ -1,56 +1,120 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios'; // Import Axios for HTTP requests
-import { AuthContext } from './AuthContextProvider'; // Assuming you have an AuthContext for user information
+import axios from 'axios';
+import { AuthContext } from './AuthContextProvider';
+import { Line } from 'react-chartjs-2';
+import moment from 'moment';
 
 const TrackFitness = () => {
-  const { user } = useContext(AuthContext); // Access user context for user ID
-  const [mentalHealthData, setMentalHealthData] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state for data fetching
+  const { user } = useContext(AuthContext);
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
     if (user) {
-      fetchMentalHealthData(user.userId); // Fetch mental health data when component mounts with user ID
+      fetchReports(user.userId);
     }
   }, [user]);
 
-  const fetchMentalHealthData = async (userId) => {
-    console.log("Fetching data for user ID:", userId);
+  const fetchReports = async (userId) => {
     try {
       const response = await axios.get(`http://localhost:5000/api/fetch-report/${userId}`);
-      console.log("Response from server:", response.data); // Log response for debugging
-      setMentalHealthData(response.data);
+      setReports(response.data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching mental health data:', error);
+      console.error('Error fetching reports:', error);
       setLoading(false);
     }
   };
-  
+
+  // Prepare data for line chart
+  const chartData = {
+    labels: reports.map(report => moment(report.timestamp).format('MMM D, YYYY')),
+    datasets: [
+      {
+        label: 'PHQ-9 Score',
+        data: reports.map(report => ({ x: moment(report.timestamp), y: report.phq9Score })),
+        fill: false,
+        borderColor: 'rgba(75,192,192,1)',
+        tension: 0.1
+      },
+      {
+        label: 'GAD-7 Score',
+        data: reports.map(report => ({ x: moment(report.timestamp), y: report.gad7Score })),
+        fill: false,
+        borderColor: 'rgba(255,99,132,1)',
+        tension: 0.1
+      }
+    ]
+  };
 
   return (
     <div className="track-fitness-container">
       <h2>Track Your Mental Health Assessments</h2>
       {loading ? (
         <p>Loading...</p>
-      ) : mentalHealthData && mentalHealthData.length > 0 ? (
-        <div className="mental-health-data">
-          {mentalHealthData.map((report) => (
-            <div key={report._id} className="mental-health-report">
-              <p>Date: {new Date(report.timestamp).toLocaleDateString()}</p>
-              <p>PHQ-9 Score: {report.phq9Score}</p>
-              <p>PHQ-9 Severity: {report.phq9Severity}</p>
-              <p>GAD-7 Score: {report.gad7Score}</p>
-              <p>GAD-7 Severity: {report.gad7Severity}</p>
-            </div>
-          ))}
+      ) : reports.length > 0 ? (
+        <div>
+          {/* Line Chart */}
+          <div className="line-chart">
+            <Line
+              data={{
+                datasets: chartData.datasets,
+                labels: chartData.labels
+              }}
+              options={{
+                scales: {
+                  x: {
+                    type: 'time',
+                    time: {
+                      unit: 'day'
+                    },
+                    title: {
+                      display: true,
+                      text: 'Date'
+                    }
+                  },
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Score'
+                    }
+                  }
+                }
+              }}
+            />
+          </div>
+          {/* Reports Table */}
+          <div className="reports-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>PHQ-9 Score</th>
+                  <th>PHQ-9 Severity</th>
+                  <th>GAD-7 Score</th>
+                  <th>GAD-7 Severity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {reports.map(report => (
+                  <tr key={report._id}>
+                    <td>{moment(report.timestamp).format('MMM D, YYYY')}</td>
+                    <td>{report.phq9Score}</td>
+                    <td>{report.phq9Severity}</td>
+                    <td>{report.gad7Score}</td>
+                    <td>{report.gad7Severity}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : (
         <p>No mental health data found.</p>
       )}
     </div>
   );
-  
 };
 
 export default TrackFitness;

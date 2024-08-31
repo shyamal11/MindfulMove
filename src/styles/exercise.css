@@ -13,14 +13,22 @@
     font-size: 1rem;
     line-height: 28px;
 }
-.exercise__wrapper{
+.exButtonm{
+    flex-direction: column;
     background: var(--bg-gradient);
     border-radius: 0.3rem;
-    display: flex;
     border-radius: 0.5rem;
-    align-items: center;
     justify-content: space-between;
-    padding: 80px 60px;
+    padding: 70px 50px;
+   
+}
+.exercise__wrapper{
+
+    display: flex;
+    align-items: center;
+ 
+   
+  
 }
 
 .exercise__item{
@@ -52,8 +60,40 @@
     color: #fff;
     font-weight: 500;
     /* margin-bottom: 0.6rem; */
+    margin-bottom: 15px;
 }
 .exercise__content p{
     font-size: 1rem;
     color: #ffffffb8;
 }
+
+.exButton {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .exButton .btn {
+    background-color: #f0ad4e;
+    color: #fff;
+    padding: 10px 42px; /* Adjusted padding for larger button */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem; /* Increase font size */
+    border-radius: 20px;
+  }
+  
+  .exButton .btn:hover {
+    background-color: #e65100;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .fit-width {
+    padding: 16px 32px; /* Adjusted padding for larger button */
+    font-size: 1.2rem; /* Increase font size */
+    font-family: inherit;
+    text-align: center;
+  }

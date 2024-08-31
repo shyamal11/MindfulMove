@@ -104,7 +104,7 @@ app.get('/api/fetch-report/:userId', async (req, res) => {
   // Log userId to verify it's being received correctly
 
   try {
-    console.log(userId)
+    console.log("sssss",userId)
     const reports = await Report.find({ userId }).sort({ timestamp: -1 });
    
     if (!reports || reports.length === 0) {

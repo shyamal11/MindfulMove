@@ -1,47 +1,56 @@
-import React from 'react'
+import React from 'react';
 import "../styles/exercise.css";
-import lunges from "../assets/img/lunges.png"
-import yoga from "../assets/img/yoga-pose.png"
-import ex from "../assets/img/extended.png"
+import lunges from "../assets/img/lunges.png";
+import yoga from "../assets/img/yoga-pose.png";
+import ex from "../assets/img/extended.png";
 
 const Exercise = () => {
-  return <section>
-    <div className="container exercise__top">
-        <div className="exercise__top">
-            <h2 className="section__title">Benefits of <span className="highlights">Exersice</span></h2>
-            <p>Exercise is essential for maintaining a healthy body and mind,<br/> and can improve quality of life in numerous ways.</p>
-        </div>
-        <div className="exercise__wrapper">
-            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
-                <span className="exercise__icon"><img src={lunges} alt="err" /></span>
-
-                <div className="exercise__content">
-                    <h4>Healthy Life</h4>
-                    <p>Living a healthy life involves taking care of both your physical and mental health.</p>
+    return (
+        <section>
+            <div className="container exercise__top">
+                <div className="exercise__top">
+                    <h2 className="section__title">How it <span className="highlights">Works</span></h2>
+                  
                 </div>
-            </div>
+                <div className="exButtonm">
+                    <div className="exercise__wrapper">
+                        <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
+                            <span className="exercise__icon"><img src={lunges} alt="err" /></span>
 
-            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
-                <span className="exercise__icon"><img src={yoga} alt="err" /></span>
+                            <div className="exercise__content">
+                            <h4>Assessment </h4>
+                            <p>Include stress, anxiety, and depression assessments to understand your mental well-being.</p>
+                            </div>
+                        </div>
 
-                <div className="exercise__content">
-                    <h4>Increased Flexibility</h4>
-                    <p>Increased flexibility is an important aspect of physical fitness that can offer a range of benefits</p>
+                        <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
+                            <span className="exercise__icon"><img src={yoga} alt="err" /></span>
+
+                            <div className="exercise__content">
+                            <h4>Suggested Yoga</h4>
+                            <p>Based on your assessment, we recommend yoga to improve flexibility, mental clarity, and overall well-being.</p>
+                            </div>
+                        </div>
+
+                        <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
+                            <span className="exercise__icon"><img src={ex} alt="err" /></span>
+
+                            <div className="exercise__content">
+                            <h4>Yoga with AI Instructor</h4>
+                            <p>Experience live yoga sessions guided by AI instructors for personalized and interactive sessions.</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div className="exButton">
+                        <button onClick={() => console.log("Start button clicked for Healthy Life")} className="btn btn-primary fit-width">Start</button>
+                    </div>
                 </div>
+
             </div>
-
-
-            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
-                <span className="exercise__icon"><img src={ex} alt="err" /></span>
-
-                <div className="exercise__content">
-                    <h4>Reducing Blood Pressure</h4>
-                    <p>Regular physical activity can help lower blood pressure and improve overall cardiovascular health.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-  </section>
+        </section>
+    );
 }
 
-export default Exercise
+export default Exercise;
