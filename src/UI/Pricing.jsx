@@ -6,7 +6,7 @@ const Pricing = () => {
     <div className="container">
     <div className="pricing__top">
         <h2 className="section__title">Premium <span className="highlights">Subscription</span> plan</h2>
-        <p>Health & Fitness is a popular nutrition and exercise tracking app that offers a premium subscription service.<br/>The premium version includes advanced nutrient tracking, customized goals and advice, and exclusive content.</p>
+        <p>PeachPath is a popular nutrition and exercise tracking app that offers a premium subscription service.<br/>The premium version includes advanced nutrient tracking, customized goals and advice, and exclusive content.</p>
     </div>
 
     <div className="pricing__wrapper">
