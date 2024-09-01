@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
@@ -37,77 +36,38 @@ const AuthContextProvider = ({ children }) => {
 
   const register = async (username, password) => {
     try {
-      await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/insertOne', {
-        dataSource: "Cluster0",
-        database: "test",
-        collection: "users",
-        document: {
-          username,
-          password
-        }
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'api-key': process.env.MONGODB_API_KEY // Use environment variable
-        }
+      // Send a POST request to your server endpoint
+      const response = await axios.post('/api/register', {
+        username,
+        password
       });
+  
+  
+      // Optionally, you can automatically log the user in after registration
       await login(username, password);
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        if (error.response.status === 400) {
-          throw new Error('Username already exists');
-        } else {
-          throw new Error('Registration failed. Please try again later.');
-        }
-      } else if (error.request) {
-        // The request was made but no response was received
-        throw new Error('No response from server. Please try again later.');
-      } else {
-        // Something else happened in making the request that triggered an error
-        throw new Error(error.message);
-      }
+      // Simplified error handling
+      const errorMessage = error.response?.data?.error || 'An error occurred. Please try again later.';
+      throw new Error(errorMessage);
     }
   };
-
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/findOne',
-        {
-          dataSource: "Cluster0",
-          database: "test",
-          collection: "users",
-          filter: { username },
-          projection: { username: 1, password: 1, __v: 1 } },
-       {
+        const response = await axios.post('/api/login', { username, password });
 
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'api-key': 'jB6Nbrz37jD6wis6jGx500m3gle0LcOqH7dDvjYTJiphfHpPYW5u6aJvDIL55vgu' // Use environment variable
-          }
-        });
+        const { token, userId, username: loggedInUsername } = response.data;
 
-      const user = response.data.document;
-
-      if (user && user.password === password) {
-        //const jwtSecret = 'aa00335ebc227bb226d97c7a1d2ba94e3a5f643353a6c17da3608c3483ad8eac67f4702a922b8fe618733e5745dfa295bc22fcb8fb19da20f2b35ac537ca6388'; // Ensure this matches your server's secret
-       // const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
-        setUser({ userId: user._id, username: user.username });
+        setUser({ userId, username: loggedInUsername, token });
 
         if (redirectAfterLogin) {
-          window.open('/questionnaires', '_blank');
-          setRedirectAfterLogin(false);
+            window.open('/questionnaires', '_blank');
+            setRedirectAfterLogin(false);
         }
-      } else {
-        throw new Error('Invalid username or password');
-      }
     } catch (error) {
-      throw new Error(error.response?.data?.error || 'Login failed. Please try again later.');
+       throw new Error(error.response?.data?.error || 'Login failed. Please try again later.');
     }
-  };
-
+};
 
 
   const logout = () => {

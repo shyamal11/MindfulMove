@@ -1,125 +1,95 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const axios = require('axios');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const app = express();
-const port = 5000;
+const port = 3001;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-mongoose.connect('mongodb+srv://vercel-admin-user:EPH52vgHmDMtqzEj@cluster0.8awyqnb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// Define User schema and model
-const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-});
-
-const User = mongoose.model('User', UserSchema);
-
-// Define Report schema and model
-const ReportSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  phq9Score: Number,
-  gad7Score: Number,
-  phq9Severity: String,
-  gad7Severity: String,
-  timestamp: { type: Date, default: Date.now },
-});
-
-const Report = mongoose.model('Report', ReportSchema);
-
-app.post('/register', async (req, res) => {
+// Handle registration
+app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Check if the username already exists
-    const existingUser = await User.findOne({ username });
+      // Hash the password before storing it
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-    if (existingUser) {
-      return res.status(400).send('Username already exists');
-    }
+      // Data to be inserted
+      const record = {
+          dataSource: "Cluster0",
+          database: "test",
+          collection: "users",
+          document: {
+              username,
+              password: hashedPassword
+          }
+      };
 
-    // If username is not taken, proceed to hash the password and create new user
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword });
-    await newUser.save();
-    res.status(201).send('User registered');
+      // Insert the new record into MongoDB
+      const response = await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/insertOne', record, {
+          headers: {
+              'Content-Type': 'application/json',
+              'apiKey': process.env.MONGODB_API_KEY
+          }
+      });
+
+      res.status(200).json({ message: 'User registered successfully' });
   } catch (error) {
-    console.error( error);
-    res.status(500).send('');
+      console.error('Registration failed:', error.message);
+      res.status(500).json({ error: 'Registration failed. Please try again later.' });
   }
 });
 
-
-
-
-app.post('/login', async (req, res) => {
+//Handle login
+app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (!user) {
-    return res.status(401).send('Invalid credentials');
-  }
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    return res.status(401).send('Invalid credentials');
-  }
-
-  const jwtSecret = 'aa00335ebc227bb226d97c7a1d2ba94e3a5f643353a6c17da3608c3483ad8eac67f4702a922b8fe618733e5745dfa295bc22fcb8fb19da20f2b35ac537ca6388';
-  const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
-  res.status(200).json({ token, userId: user._id, username: user.username });
-});
-
-app.post('/api/save-report', async (req, res) => {
-  const { userId, phq9Score, gad7Score, phq9Severity, gad7Severity } = req.body;
 
   try {
-    // Save report data to the Report collection
-    const newReport = new Report({
-      userId,
-      phq9Score,
-      gad7Score,
-      phq9Severity,
-      gad7Severity,
-    });
+      // Fetch user data from MongoDB
+      const response = await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/findOne', {
+          dataSource: "Cluster0",
+          database: "test",
+          collection: "users",
+          filter: { username },
+          projection: { username: 1, password: 1 }
+      }, {
+          headers: {
+              'Content-Type': 'application/json',
+              'api-key': 'jB6Nbrz37jD6wis6jGx500m3gle0LcOqH7dDvjYTJiphfHpPYW5u6aJvDIL55vgu'
+          }
+      });
 
-    await newReport.save();
-
-    res.status(201).json({ message: 'Report saved successfully' });
-  } catch (error) {
-    console.error('Error saving report:', error);
-    res.status(500).json({ error: 'Failed to save report' });
-  }
-});
-
-app.get('/api/fetch-report/:userId', async (req, res) => {
-  const userId = req.params.userId;
-  // Log userId to verify it's being received correctly
-
-  try {
-    console.log("sssss",userId)
-    const reports = await Report.find({ userId }).sort({ timestamp: -1 });
+      const user = response.data.document;
    
-    if (!reports || reports.length === 0) {
-      return res.status(404).json({ message: 'No reports found for this user' });
+      if (user) {
+        console.log('Comparing password...');
+        const match = await bcrypt.compare(password, user.password);
+
+        console.log('Password match:', match);
+
+        if (match) {
+            const jwtSecret = process.env.JWT_SECRET; // Ensure this is set in your .env file
+            const token = jwt.sign({ userId: user._id, username: user.username }, jwtSecret, { expiresIn: '1h' });
+            res.status(200).json({ token, userId: user._id, username: user.username });
+        } else {
+            res.status(401).json({ error: 'Invalid username or password' });
+        }
+    } else {
+        res.status(401).json({ error: 'User not found' });
     }
-    
-    res.status(200).json(reports);
-  } catch (error) {
-    console.error('Error fetching report:', error);
-    res.status(500).json({ error: 'Failed to fetch report' });
-  }
+} catch (error) {
+    console.error('Login failed:', error.message);
+    res.status(500).json({ error: 'Login failed. Please try again later.' });
+}
 });
 
 
 
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+    console.log(`Local proxy server running at http://localhost:${port}`);
 });
