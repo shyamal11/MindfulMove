@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
@@ -35,7 +37,20 @@ const AuthContextProvider = ({ children }) => {
 
   const register = async (username, password) => {
     try {
-      await axios.post('http://localhost:5000/register', { username, password });
+      await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/insertOne', {
+        dataSource: "Cluster0",
+        database: "test",
+        collection: "users",
+        document: {
+          username,
+          password
+        }
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': process.env.MONGODB_API_KEY // Use environment variable
+        }
+      });
       await login(username, password);
     } catch (error) {
       if (error.response) {
@@ -50,26 +65,49 @@ const AuthContextProvider = ({ children }) => {
         throw new Error('No response from server. Please try again later.');
       } else {
         // Something else happened in making the request that triggered an error
-        throw new Error( error.message);
+        throw new Error(error.message);
       }
     }
   };
-  
+
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
-      const { token, username: userUsername, userId } = response.data;
-      setUser({ userId, username: userUsername, token });
+      const response = await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/findOne',
+        {
+          dataSource: "Cluster0",
+          database: "test",
+          collection: "users",
+          filter: { username },
+          projection: { username: 1, password: 1, __v: 1 } },
+       {
 
-      if (redirectAfterLogin) {
-        window.open('/questionnaires', '_blank');
-        setRedirectAfterLogin(false);
+          headers: {
+            'Content-Type': 'application/json',
+            'api-key': process.env.DATA_API_KEY // Use environment variable
+          }
+        });
+
+      const user = response.data.document;
+
+      if (user && user.password === password) {
+        const jwtSecret = 'aa00335ebc227bb226d97c7a1d2ba94e3a5f643353a6c17da3608c3483ad8eac67f4702a922b8fe618733e5745dfa295bc22fcb8fb19da20f2b35ac537ca6388'; // Ensure this matches your server's secret
+        const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
+        setUser({ userId: user._id, username: user.username, token });
+
+        if (redirectAfterLogin) {
+          window.open('/questionnaires', '_blank');
+          setRedirectAfterLogin(false);
+        }
+      } else {
+        throw new Error('Invalid username or password');
       }
     } catch (error) {
-      throw error;
+      throw new Error(error.response?.data?.error || 'Login failed. Please try again later.');
     }
   };
+
+
 
   const logout = () => {
     setUser(null);
