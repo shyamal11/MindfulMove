@@ -11,7 +11,7 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb+srv://shyamal116:bstisdcan1S@cluster0.8awyqnb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+mongoose.connect('mongodb+srv://vercel-admin-user:EPH52vgHmDMtqzEj@cluster0.8awyqnb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
