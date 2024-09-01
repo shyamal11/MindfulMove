@@ -39,7 +39,7 @@ const AuthContextProvider = ({ children }) => {
       await login(username, password);
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
+        // The request was made and the server rresponded with a status code
         if (error.response.status === 400) {
           throw new Error('Username already exists');
         } else {
