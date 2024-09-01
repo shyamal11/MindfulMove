@@ -83,8 +83,9 @@ const AuthContextProvider = ({ children }) => {
        {
 
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'api-key': process.env.DATA_API_KEY // Use environment variable
+            'api-key': 'jB6Nbrz37jD6wis6jGx500m3gle0LcOqH7dDvjYTJiphfHpPYW5u6aJvDIL55vgu' // Use environment variable
           }
         });
 
