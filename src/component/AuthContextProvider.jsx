@@ -37,7 +37,7 @@ const AuthContextProvider = ({ children }) => {
   const register = async (username, password) => {
     try {
       // Send a POST request to your server endpoint
-      const response = await axios.post('/api/register', {
+      const response = await axios.post('https://backend-inner-balance-hub.vercel.app/api/register', {
         username,
         password
       });
@@ -54,7 +54,9 @@ const AuthContextProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-        const response = await axios.post('/api/login', { username, password });
+        const response = await axios.post('https://backend-inner-balance-hub.vercel.app/api/login', { username, password });
+
+        console.log('response', response)
 
         const { token, userId, username: loggedInUsername } = response.data;
 

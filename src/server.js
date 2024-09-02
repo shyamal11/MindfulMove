@@ -38,6 +38,8 @@ app.post('/api/register', async (req, res) => {
           }
       });
 
+      console.log('response', response);
+
       res.status(200).json({ message: 'User registered successfully' });
   } catch (error) {
       console.error('Registration failed:', error.message);
@@ -67,10 +69,10 @@ app.post('/api/login', async (req, res) => {
       const user = response.data.document;
    
       if (user) {
-        console.log('Comparing password...');
+       
         const match = await bcrypt.compare(password, user.password);
 
-        console.log('Password match:', match);
+      
 
         if (match) {
             const jwtSecret = process.env.JWT_SECRET; // Ensure this is set in your .env file
