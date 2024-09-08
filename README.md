@@ -2,6 +2,11 @@
 
 This project is a React-based application designed to help users analyze their mental health statistics through various tests. Based on the results, users receive exercise suggestions to improve their well-being. The app also features live yoga sessions guided by an AI tutor, which provides step-by-step instructions. It employs machine learning algorithms to enhance user experience. Data is stored and managed using MongoDB, with the frontend interacting with the MongoDB API for all data operations. Additionally, the application supports dynamic CSS loading to enhance the visual experience.
 
+## Live Demo
+
+You can explore the live project here: [Live Demo](https://inner-balance-hub.vercel.app/))
+
+
 ## Features
 
 - **React Frontend**: A dynamic user interface built with React.
