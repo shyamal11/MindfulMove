@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../styles/bot.css";
 import roundImage from "../assets/img/Home_page.png"; // Adjust the path
 
 const Bot = () => {
@@ -63,7 +62,7 @@ const Bot = () => {
       <div className={`bot-window ${isOpen ? 'open' : ''}`}>
         <div className="bot-header">
           <span className="bot-title">
-            <img src={roundImage} alt="Round Image" />
+          <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/istockphoto-1073043572-612x612.jpg" alt="Round Image" />
             Chatbot
           </span>
           <button className="close-button" onClick={toggleBot}>

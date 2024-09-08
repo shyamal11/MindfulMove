@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { AuthContext } from "../component/AuthContextProvider";
 import { useContext } from "react";
 import Swal from "sweetalert2";
-import "../styles/track.css";
+
 
 const Track = () => {
   const [name, setName] = useState("");

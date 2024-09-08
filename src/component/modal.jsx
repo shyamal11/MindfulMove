@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { AuthContext } from './AuthContextProvider';
-import '../styles/modal.css';
+
 
 Modal.setAppElement('#root');
 

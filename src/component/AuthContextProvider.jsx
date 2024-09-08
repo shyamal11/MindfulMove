@@ -37,24 +37,25 @@ const AuthContextProvider = ({ children }) => {
   const register = async (username, password) => {
     try {
       // Send a POST request to your server endpoint
-      const response = await axios.post('https://backend-inner-balance-hub.vercel.app/api/register', {
+      console.log(process.env.REACT_APP_MONGODB_REGISTER_URL)
+      const response = await axios.post(process.env.REACT_APP_MONGODB_REGISTER_URL, {
         username,
         password
       });
   
-  
+      console.log('Registration response:', response);
       // Optionally, you can automatically log the user in after registration
       await login(username, password);
     } catch (error) {
       // Simplified error handling
-      const errorMessage = error.response?.data?.error || 'An error occurred. Please try again later.';
+      const errorMessage = error.response?.data?.error || 'An error occurresdd. Please try again later.';
       throw new Error(errorMessage);
     }
   };
 
   const login = async (username, password) => {
     try {
-        const response = await axios.post('https://backend-inner-balance-hub.vercel.app/api/login', { username, password });
+        const response = await axios.post(process.env.REACT_APP_MONGODB_LOGIN_URL, { username, password });
 
         console.log('response', response)
 

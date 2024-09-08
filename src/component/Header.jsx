@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/header.css";
 import logo from "../assets/img/Health___Fitness.png";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "./AuthContextProvider";
@@ -77,7 +76,7 @@ const Header = () => {
           <div className="nav__wrapper">
             <div className="logo">
               <div className="logo__img">
-                <img src={logo} alt="" />
+              <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/Health___Fitness.png" alt="Round Image" />
               </div>
               <h2>PeacePath</h2>
             </div>

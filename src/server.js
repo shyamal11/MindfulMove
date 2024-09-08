@@ -31,7 +31,7 @@ app.post('/api/register', async (req, res) => {
       };
 
       // Insert the new record into MongoDB
-      const response = await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/insertOne', record, {
+      const response = await axios.post(process.env.MONGODB_REGISTER_URL, record, {
           headers: {
               'Content-Type': 'application/json',
               'apiKey': process.env.MONGODB_API_KEY
@@ -53,7 +53,7 @@ app.post('/api/login', async (req, res) => {
 
   try {
       // Fetch user data from MongoDB
-      const response = await axios.post('https://data.mongodb-api.com/app/data-sicwcur/endpoint/data/v1/action/findOne', {
+      const response = await axios.post(process.env.MONGODB_LOGIN_URL, {
           dataSource: "Cluster0",
           database: "test",
           collection: "users",
@@ -62,7 +62,7 @@ app.post('/api/login', async (req, res) => {
       }, {
           headers: {
               'Content-Type': 'application/json',
-              'api-key': 'jB6Nbrz37jD6wis6jGx500m3gle0LcOqH7dDvjYTJiphfHpPYW5u6aJvDIL55vgu'
+              'api-key': process.env.MONGODB_API_KEY
           }
       });
 

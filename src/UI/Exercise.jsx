@@ -1,10 +1,13 @@
 import React from 'react';
-import "../styles/exercise.css";
-import lunges from "../assets/img/lunges.png";
-import yoga from "../assets/img/yoga-pose.png";
-import ex from "../assets/img/extended.png";
+
+
 
 const Exercise = () => {
+
+    const lunges = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/lunges.png";
+    const yoga = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/yoga-pose.png";
+    const ex = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/extended.png";
+  
     return (
         <section>
             <div className="container exercise__top">

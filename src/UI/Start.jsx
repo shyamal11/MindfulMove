@@ -1,8 +1,9 @@
 import React from 'react'
-import trainer from "../assets/img/trainer.jpg"
-import "../styles/start.css";
+
+
 
 const Start = () => {
+  const trainer = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/trainer.jpg";
   return <section>
     <div className="container">
         <div className="start__wrapper">

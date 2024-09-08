@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './AuthContextProvider';
-import '../styles/Questionnaires.css';
+
 import AuthModal from './modal'; // Assuming AuthModal is implemented
 
 const PHQ9AndGAD7Questionnaire = () => {

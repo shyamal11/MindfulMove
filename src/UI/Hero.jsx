@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
-import heroImg from '../assets/img/model1-removebg-preview.png';
-import '../styles/hero.css';
+
+
 import { AuthContext } from '../component/AuthContextProvider'; // Adjust the path to your AuthContext
 import AuthModal from '../component/modal';
 
 const Hero = () => {
+  const heroImg = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/model1-removebg-preview.png";
   const { user } = useContext(AuthContext);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
