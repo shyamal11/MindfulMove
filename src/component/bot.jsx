@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import roundImage from "../assets/img/Home_page.png"; // Adjust the path
+
 
 const Bot = () => {
   const [isOpen, setIsOpen] = useState(false);

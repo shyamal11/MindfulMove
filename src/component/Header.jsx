@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/Health___Fitness.png";
+
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "./AuthContextProvider";
 import AuthModal from "./modal";
