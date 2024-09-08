@@ -4,7 +4,7 @@ This project is a React-based application designed to help users analyze their m
 
 ## Live Demo
 
-You can explore the live project here: [Live Demo](https://inner-balance-hub.vercel.app/))
+You can explore the live project here: [Live Demo](https://inner-balance-hub.vercel.app/)
 
 
 ## Features
