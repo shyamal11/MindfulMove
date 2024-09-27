@@ -1,9 +1,9 @@
 import React from "react";
-
+import logo from '../assets/img/Health___Fitness.png'; // Correctly importing the image
 
 
 const Footer = () => {
-  const logo = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/Health___Fitness.png";
+  
     const year=new Date().getFullYear();
   return (
     <footer className="footer" data-aos-duration="1100" data-aos="fade-up">
