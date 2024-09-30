@@ -110,6 +110,7 @@ const Yoga = () => {
 
   const runMovenet = async () => {
     try {
+      await tf.ready();
       const detectorConfig = { modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER };
       const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, detectorConfig);
       const poseClassifier = await tf.loadLayersModel('https://models.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json');
@@ -194,21 +195,6 @@ const Yoga = () => {
     }
   };
 
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        await tf.ready(); // Wait until TensorFlow.js is ready
-        await tf.setBackend('webgpu'); // Optional: Set the backend to WebGPU
-        runMovenet(); // Call your function to start pose detection
-      } catch (error) {
-        console.error("Error initializing TensorFlow or setting backend:", error);
-      }
-    };
-
-    if (isStartPose) {
-      initialize(); // Initialize TensorFlow when the pose session starts
-    }
-  }, [isStartPose, runMovenet]); // Include runMovenet in the dependency array
 
 
   function startYoga() {
