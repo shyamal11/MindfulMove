@@ -1,9 +1,12 @@
 import React from 'react';
-import trainer from '../assets/img/trainer.jpg'; // Correctly importing the image
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import trainer from '../assets/img/trainer.jpg';
 
 const Start = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const handleGetStarted = () => {
-    window.open('/yoga', '_blank'); // Opens the Yoga component in a new tab
+    navigate('/yoga'); // Use navigate instead of window.open
   };
 
   return (
