@@ -62,7 +62,7 @@ const Bot = () => {
       <div className={`bot-window ${isOpen ? 'open' : ''}`}>
         <div className="bot-header">
           <span className="bot-title">
-          <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/istockphoto-1073043572-612x612.jpg" alt="Round Image" />
+          <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/istockphoto-1073043572-612x612.jpg" alt="bot logo" />
             Chatbot
           </span>
           <button className="close-button" onClick={toggleBot}>

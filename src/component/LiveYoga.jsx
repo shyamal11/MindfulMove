@@ -18,7 +18,7 @@ const Yoga = () => {
   const queryParams = new URLSearchParams(location.search);
   const pose = queryParams.get('pose') || 'Tree'; // Get the 'pose' query parameter from URL
 
-  const [currentPose, setCurrentPose] = useState(pose);
+  const [currentPose] = useState(pose);
   const [poseTime, setPoseTime] = useState(0);
   const [bestPerform, setBestPerform] = useState(0);
   const [isStartPose, setIsStartPose] = useState(false);
@@ -27,21 +27,7 @@ const Yoga = () => {
   const [startingTime, setStartingTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        await tf.ready(); // Wait until TensorFlow.js is ready
-        await tf.setBackend('webgpu'); // Optional: Set the backend to WebGPU
-        runMovenet(); // Call your function to start pose detection
-      } catch (error) {
-        console.error("Error initializing TensorFlow or setting backend:", error);
-      }
-    };
 
-    if (isStartPose) {
-      initialize(); // Initialize TensorFlow when the pose session starts
-    }
-  }, [isStartPose]);
 
   const CLASS_NO = {
     Chair: 0,
@@ -57,12 +43,12 @@ const Yoga = () => {
   useEffect(() => {
     const timeDiff = (currentTime - startingTime) / 1000;
     if (flag) {
-      setPoseTime(timeDiff);
+        setPoseTime(timeDiff);
     }
     if (timeDiff > bestPerform) {
-      setBestPerform(timeDiff);
+        setBestPerform(timeDiff);
     }
-  }, [currentTime]);
+}, [currentTime, startingTime, bestPerform]);
 
   useEffect(() => {
     setCurrentTime(0);
@@ -207,6 +193,22 @@ const Yoga = () => {
       console.error("Error in detectPose function:", error);
     }
   };
+
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        await tf.ready(); // Wait until TensorFlow.js is ready
+        await tf.setBackend('webgpu'); // Optional: Set the backend to WebGPU
+        runMovenet(); // Call your function to start pose detection
+      } catch (error) {
+        console.error("Error initializing TensorFlow or setting backend:", error);
+      }
+    };
+
+    if (isStartPose) {
+      initialize(); // Initialize TensorFlow when the pose session starts
+    }
+  }, [isStartPose, runMovenet]); // Include runMovenet in the dependency array
 
 
   function startYoga() {

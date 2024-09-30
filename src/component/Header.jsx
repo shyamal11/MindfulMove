@@ -76,7 +76,7 @@ const Header = () => {
           <div className="nav__wrapper">
             <div className="logo">
               <div className="logo__img">
-              <img src= {roundImage} alt="Round Image" />
+              <img src= {roundImage} alt="Health and Fitness Logo" />
               </div>
               <h2>PeacePath</h2>
             </div>
