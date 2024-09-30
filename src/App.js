@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import "./App.css"; // Ensure your global styles are imported correctly
@@ -6,7 +6,6 @@ import Footer from "./UI/Footer";
 import Header from "./component/Header";
 import AllRoutes from "./component/AllRoutes";
 import Bot from "./component/bot";
-import { AuthContext } from "./component/AuthContextProvider";
 import HashLoader from "react-spinners/HashLoader"; // Import the spinner component
 
 function App() {
@@ -75,7 +74,7 @@ function App() {
     };
   }, []);
 
-  const { user } = useContext(AuthContext);
+ 
 
   return (
     <div className="App">

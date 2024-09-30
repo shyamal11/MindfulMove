@@ -1,13 +1,9 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Hero from '../UI/Hero';
 import Testimonials from '../UI/Testimonials';
 import Pricing from '../UI/Pricing';
-import Track from '../UI/Track';
-import Exercise from '../UI/Exercise';
 import Home from '../UI/Home';
 import { AuthContext } from './AuthContextProvider';
-import PrivateRoute from './PrivateRoute';
 import Login from '../UI/LogIn/Login';
 import Questionnaire from './Questionnaires';
 import ReportTracker from './ReportTracker'
