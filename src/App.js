@@ -7,10 +7,10 @@ import Header from "./component/Header";
 import AllRoutes from "./component/AllRoutes";
 import Bot from "./component/bot";
 import { AuthContext } from "./component/AuthContextProvider";
-import Spinner from "./component/Spinner"; // Assuming you've created a Spinner component
+import HashLoader from "react-spinners/HashLoader"; // Import the spinner component
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);  // Track loading state
+  const [isLoading, setIsLoading] = useState(true); // Track loading state
 
   useEffect(() => {
     Aos.init();
@@ -44,14 +44,17 @@ function App() {
         linkElement.onload = () => {
           loadedCount += 1;
           if (loadedCount === cssFiles.length) {
-            setIsLoading(false);  // All CSS files are loaded
+            setIsLoading(false); // All CSS files are loaded
           }
         };
 
         // Error handling: If a CSS file fails to load, hide the spinner after a fallback delay
         linkElement.onerror = () => {
           console.error(`Error loading CSS file: ${cssFile}`);
-          setTimeout(() => setIsLoading(false), 3000);  // Fallback to hide spinner after 3 seconds
+          loadedCount += 1; // Increment the count even if there's an error
+          if (loadedCount === cssFiles.length) {
+            setIsLoading(false); // Hide spinner after error
+          }
         };
 
         document.head.appendChild(linkElement);
@@ -77,7 +80,14 @@ function App() {
   return (
     <div className="App">
       {isLoading ? (
-        <Spinner />  // Show spinner while loading
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <HashLoader
+            color="#164B60"
+            loading
+            size={50}
+            speedMultiplier={1.5}
+          />
+        </div>
       ) : (
         <>
           <Header />

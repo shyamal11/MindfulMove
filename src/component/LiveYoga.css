@@ -1,0 +1,86 @@
+.live-yoga-container {
+  background: linear-gradient(to right, #f0f8ff, #e0f7fa);
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements */
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pose-title {
+  margin-bottom: 20px; /* Space below the heading */
+  color: #00796b; /* Heading color */
+  text-align: center; /* Center the text */
+  width: 100%; /* Full width for centering */
+}
+
+.yoga-session {
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the boxes horizontally */
+  align-items: flex-start; /* Align items to the top */
+  width: 100%;
+}
+
+.camera-feed-container {
+  border: 2px solid white; /* Border for the camera feed box */
+  border-radius: 10px;
+  overflow: hidden; /* Prevent overflow */
+  width: 650px; /* Fixed width for camera feed */
+  margin-right: 50px; /* Space between camera feed and video box */
+  background-color: rgba(255, 255, 255, 0.8); /* Background color for camera feed box */
+  padding: 20px; /* Padding inside the box */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.webcam {
+  width: 100%; /* Ensure webcam fits the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+
+
+
+.video-container video {
+  width: 90%; /* Ensure video fits the container */
+  height: 300px; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners for video */
+}
+
+.instruction-box {
+  margin-top: 20px; /* Space above the instruction box */
+  padding: 15px;
+  background-color: #f8f8f8; /* Light background for instructions */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  height: 180px;
+  width: 90%;
+}
+
+.instruction-box h2 {
+  font-size: 1.5rem; /* Heading size for instructions */
+  color: #00796b; /* Color for instruction headings */
+}
+
+.instruction-box p {
+  font-size: 1rem; /* Normal text size for instructions */
+  color: #333; /* Dark color for readability */
+}
+
+@media (max-width: 768px) {
+  .yoga-session {
+    flex-direction: column; /* Stack boxes on small screens */
+    align-items: center; /* Center align for small screens */
+  }
+
+  .camera-feed-container,
+  .video-box {
+    width: 90%; /* Full width on small screens */
+    max-width: none; /* Remove max-width restriction */
+    margin-right: 0; /* Remove right margin on small screens */
+    margin-bottom: 20px; /* Add some spacing below each box */
+  }
+}
+

@@ -11,6 +11,9 @@ import PrivateRoute from './PrivateRoute';
 import Login from '../UI/LogIn/Login';
 import Questionnaire from './Questionnaires';
 import ReportTracker from './ReportTracker'
+import Yoga from './Yoga'
+import LiveYoga from './LiveYoga';
+
 
 const AllRoutes = () => {
   const { user } = useContext(AuthContext);
@@ -21,6 +24,8 @@ const AllRoutes = () => {
       <Route path="/programs" element={<Testimonials />} />
       <Route path="/membership" element={<Pricing />} />
       <Route path="/questionnaires" element={<Questionnaire />} />
+      <Route path="/yoga" element={<Yoga />} />
+      <Route path="/live-yoga" element={<LiveYoga />} />
       <Route path="*" element={<div>Page Not Found</div>} />
       <Route
         path="/track"
