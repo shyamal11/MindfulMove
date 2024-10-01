@@ -87,8 +87,8 @@ function App() {
             className="ask-doctor-container"
             style={{
               position: 'fixed',
-              bottom: '70px',
-              right: '50px',
+              bottom: '50px',
+              right: '25px',
               zIndex: 1000,
             }}
           >
@@ -97,7 +97,7 @@ function App() {
               onClick={toggleBot}
 
             >
-              Need Help? Ask Virtual Doc
+              Ask Virtual Doc
             </button>
             {!showBot && (
             <div className="ask-doctor-gif">
