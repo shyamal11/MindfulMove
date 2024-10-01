@@ -43,12 +43,12 @@ const Yoga = () => {
   useEffect(() => {
     const timeDiff = (currentTime - startingTime) / 1000;
     if (flag) {
-        setPoseTime(timeDiff);
+      setPoseTime(timeDiff);
     }
     if (timeDiff > bestPerform) {
-        setBestPerform(timeDiff);
+      setBestPerform(timeDiff);
     }
-}, [currentTime, startingTime, bestPerform]);
+  }, [currentTime, startingTime, bestPerform]);
 
   useEffect(() => {
     setCurrentTime(0);
@@ -99,6 +99,7 @@ const Yoga = () => {
   };
 
   const landmarks_to_embedding = (landmarks) => {
+
     try {
       landmarks = normalize_pose_landmarks(tf.expandDims(landmarks, 0));
       let embedding = tf.reshape(landmarks, [1, 34]);
@@ -109,6 +110,7 @@ const Yoga = () => {
   };
 
   const runMovenet = async () => {
+    console.log("runMovenet")
     try {
       await tf.ready();
       const detectorConfig = { modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER };
@@ -125,75 +127,76 @@ const Yoga = () => {
     }
   };
 
-  
+
   const detectPose = async (detector, poseClassifier, countAudio) => {
-    try {
-      if (webcamRef.current && webcamRef.current.video.readyState === 4) {
-        let notDetected = 0;
-        const video = webcamRef.current.video;
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4
+    ) {
+      let notDetected = 0
+      const video = webcamRef.current.video
+      const pose = await detector.estimatePoses(video)
+      const ctx = canvasRef.current.getContext('2d')
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      try {
+        const keypoints = pose[0].keypoints
+        let input = keypoints.map((keypoint) => {
+          if (keypoint.score > 0.4) {
+            if (!(keypoint.name === 'left_eye' || keypoint.name === 'right_eye')) {
+              drawPoint(ctx, keypoint.x, keypoint.y, 8, 'rgb(255,255,255)')
+              let connections = keypointConnections[keypoint.name]
+              try {
+                connections.forEach((connection) => {
+                  let conName = connection.toUpperCase()
+                  drawSegment(ctx, [keypoint.x, keypoint.y],
+                    [keypoints[POINTS[conName]].x,
+                    keypoints[POINTS[conName]].y]
+                    , skeletonColor)
+                })
+              } catch (err) {
 
-        try {
-          const pose = await detector.estimatePoses(video);
-          if (!pose || pose.length === 0) {
-            console.warn("No poses detected");
-            return;
-          }
-
-          const ctx = canvasRef.current.getContext('2d');
-          ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-          const keypoints = pose[0].keypoints;
-
-          let input = keypoints.map((keypoint) => {
-            if (keypoint.score > 0.4 && !(keypoint.name === 'left_eye' || keypoint.name === 'right_eye')) {
-              drawPoint(ctx, keypoint.x, keypoint.y, 8, 'rgb(255,255,255)');
-              const connections = keypointConnections[keypoint.name];
-              connections?.forEach((connection) => {
-                drawSegment(ctx, [keypoint.x, keypoint.y], [keypoints[POINTS[connection.toUpperCase()]].x, keypoints[POINTS[connection.toUpperCase()]].y], skeletonColor);
-              });
-            } else {
-              notDetected += 1;
-            }
-            return [keypoint.x, keypoint.y];
-          });
-
-          if (notDetected > 4) {
-            skeletonColor = 'rgb(255,255,255)';
-            return;
-          }
-
-          const processedInput = landmarks_to_embedding(input);
-          const classification = await poseClassifier.predict(processedInput);
-          classification.array().then((data) => {
-            const classNo = CLASS_NO[currentPose];
-            if (data[0][classNo] > 0.97) {
-              if (!flag) {
-                countAudio.play();
-                setStartingTime(new Date().getTime());
-                flag = true;
               }
-              setCurrentTime(new Date().getTime());
-              skeletonColor = 'rgb(0,255,0)';
-            } else {
-              flag = false;
-              skeletonColor = 'rgb(255,255,255)';
-              countAudio.pause();
-              countAudio.currentTime = 0;
-            }
-          }).catch(err => {
-            console.error("Error processing classification:", err);
-          });
 
-        } catch (err) {
-          console.error("Error estimating poses:", err);
+            }
+          } else {
+            notDetected += 1
+          }
+          return [keypoint.x, keypoint.y]
+        })
+        if (notDetected > 4) {
+          skeletonColor = 'rgb(255,255,255)'
+          return
         }
-      } else {
-        console.warn("Webcam video is not ready");
+        const processedInput = landmarks_to_embedding(input)
+        const classification = poseClassifier.predict(processedInput)
+
+        classification.array().then((data) => {
+          const classNo = CLASS_NO[currentPose]
+          console.log(data[0][classNo])
+          if (data[0][classNo] > 0.97) {
+
+            if (!flag) {
+              countAudio.play()
+              setStartingTime(new Date(Date()).getTime())
+              flag = true
+            }
+            setCurrentTime(new Date(Date()).getTime())
+            skeletonColor = 'rgb(0,255,0)'
+          } else {
+            flag = false
+            skeletonColor = 'rgb(255,255,255)'
+            countAudio.pause()
+            countAudio.currentTime = 0
+          }
+        })
+      } catch (err) {
+        console.log(err)
       }
-    } catch (error) {
-      console.error("Error in detectPose function:", error);
+
+
     }
-  };
+  }
 
 
 
@@ -213,7 +216,12 @@ const Yoga = () => {
       <div className="yoga-session">
         <div className="camera-feed-container">
           <Webcam className="webcam" ref={webcamRef} />
-          <canvas ref={canvasRef} id="my-canvas" width="640px" height="480px" style={{ position: 'absolute', left: 95, top: 230, zIndex: 1 }}></canvas>
+          <canvas
+            ref={canvasRef}
+            id="my-canvas"
+            width="600"   // Internal canvas resolution should match the container's size
+            height="480"  // Set height as per your container's size
+          ></canvas>
         </div>
         <div className="video-box">
           <div className="video-container">
