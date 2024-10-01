@@ -7,7 +7,7 @@ import { AuthContext } from './AuthContextProvider';
 import Login from '../UI/LogIn/Login';
 import Questionnaire from './Questionnaires';
 import ReportTracker from './ReportTracker'
-import Yoga from './Yoga'
+import AllYoga from './AllYoga'
 import LiveYoga from './LiveYoga';
 
 
@@ -20,7 +20,7 @@ const AllRoutes = () => {
       <Route path="/programs" element={<Testimonials />} />
       <Route path="/membership" element={<Pricing />} />
       <Route path="/questionnaires" element={<Questionnaire />} />
-      <Route path="/yoga" element={<Yoga />} />
+      <Route path="/all-yoga" element={<AllYoga />} />
       <Route path="/live-yoga" element={<LiveYoga />} />
       <Route path="*" element={<div>Page Not Found</div>} />
       <Route

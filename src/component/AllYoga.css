@@ -1,37 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-
-
-.yoga-page {
+.allyoga-page {
     background: linear-gradient(to bottom, #f0f7f4, #ffffff);
-  height: 700px;
- 
+    height: 600px;
 }
 
-.yoga-title-container {
+.allyoga-title-container {
     padding-top: 20px; /* Adjust the value as needed */
     text-align: center; /* Center the title within the container */
 }
 
-.yoga-title {
+.allyoga-title {
     text-align: center;
     color: #009688;
     font-size: 2em;
     margin-bottom: 30px;
     font-weight: 600;
     letter-spacing: 1.5px;
-    
-  
 }
 
 /* Search bar styling */
-.search-container {
+.allyoga-search-container {
     display: flex;
     justify-content: center;
     margin-bottom: 60px;
 }
 
-.search-bar {
+.allyoga-search-bar {
     width: 80%;
     max-width: 500px;
     padding: 10px;
@@ -43,22 +38,21 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar:focus {
+.allyoga-search-bar:focus {
     border-color: #009688;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Gallery styling */
-.pose-gallery {
+.allyoga-pose-gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
- 
 }
 
 /* Pose card styling */
-.pose-card {
+.allyoga-pose-card {
     display: flex;
     background: #ffffff;
     border-radius: 15px;
@@ -74,51 +68,47 @@
 
 @keyframes fadeInZoom {
     0% {
-      opacity: 0;
-      transform: scale(0.9);
+        opacity: 0;
+        transform: scale(0.9);
     }
     100% {
-      opacity: 1;
-      transform: scale(1);
+        opacity: 1;
+        transform: scale(1);
     }
-  }
+}
 
-.pose-card:hover {
+.allyoga-pose-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-   
 }
 
 /* Image container */
-.pose-image-container {
+.allyoga-pose-image-container {
     width: 100%;
     height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    
 }
 
-.pose-image {
+.allyoga-pose-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: 2px solid #f9d8d5;
- 
-    
 }
 
 /* Pose details */
-.pose-details {
+.allyoga-pose-details {
     padding: 10px;
     text-align: left;
 }
 
 /* Pose name styling */
-.pose-name {
+.allyoga-pose-name {
     color: #444;
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -127,7 +117,7 @@
 }
 
 /* Pose benefit */
-.pose-benefit {
+.allyoga-pose-benefit {
     background-color: #f1f8e9;
     color: #558b2f;
     font-size: .8em;
@@ -138,19 +128,18 @@
     text-align: center;
 }
 
-.pose-benefit::before {
+.allyoga-pose-benefit::before {
     content: '✓ ';
     font-weight: bold;
 }
 
-
 @keyframes fadeInUp {
     from {
-      opacity: 0;
-      transform: translateY(20px);
+        opacity: 0;
+        transform: translateY(20px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
+}

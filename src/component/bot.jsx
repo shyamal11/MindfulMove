@@ -1,16 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 
 
-const Bot = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Bot = ({ isOpen, toggleBot }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); // State to track if the bot window is expanded
   const messagesEndRef = useRef(null);
-
-  const toggleBot = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSendMessage = () => {
     if (input.trim() === "") return;
@@ -20,7 +16,7 @@ const Bot = () => {
       text: input,
     };
 
-    setMessages([...messages, userMessage]);
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
     setIsTyping(true);
 
@@ -35,7 +31,6 @@ const Bot = () => {
   };
 
   const getBotResponse = (message) => {
-    // Simple predefined responses
     switch (message.toLowerCase()) {
       case "hello":
         return "Hi there! How can I assist you today?";
@@ -54,18 +49,25 @@ const Bot = () => {
     }
   }, [messages, isOpen]);
 
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleCloseBot = () => {
+    setIsExpanded(false); // Reset expanded state when closing the bot
+    toggleBot(); // Call the parent's toggleBot to close the bot
+  };
+
   return (
     <div className="bot-container">
-      <button className="bot-toggle" onClick={toggleBot}>
-        <i className="bot-icon">💬</i>
-      </button>
-      <div className={`bot-window ${isOpen ? 'open' : ''}`}>
+      {isOpen && isExpanded && <div className="overlay" onClick={handleExpand} />} {/* Overlay only when expanded */}
+      <div className={`bot-window ${isOpen ? 'open' : ''} ${isExpanded ? 'expanded' : ''}`}>
         <div className="bot-header">
           <span className="bot-title">
-          <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/istockphoto-1073043572-612x612.jpg" alt="bot logo" />
+            <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/istockphoto-1073043572-612x612.jpg" alt="bot logo" />
             Chatbot
           </span>
-          <button className="close-button" onClick={toggleBot}>
+          <button className="close-button" onClick={handleCloseBot}>
             &times;
           </button>
         </div>
@@ -92,6 +94,11 @@ const Bot = () => {
               placeholder="Type your message..."
             />
             <button onClick={handleSendMessage}>Send</button>
+          </div>
+          {/* Expand option */}
+          <div className="expand-option">
+            <span>Want to increase the window size?</span>
+            <button onClick={handleExpand}>{isExpanded ? "Reduce" : "Expand"}</button>
           </div>
         </div>
       </div>

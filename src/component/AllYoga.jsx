@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import './Yoga.css'; // Import the CSS file for styling
+import './AllYoga.css'; // Import the CSS file for styling
 import treePose from '../utils/pose_images/tree.png';
 import cobraPose from '../utils/pose_images/cobra.png';
 import warriorPose from '../utils/pose_images/warrior.png';
-import trianglePose from '../utils/pose_images/traingle.jpg';
+import trianglePose from '../utils/pose_images/triangle.jpg';
 
 const poseData = [
   { name: 'Tree', img: treePose, benefit: 'Improves Focus and Concentration' },
@@ -13,7 +13,7 @@ const poseData = [
   { name: 'Downward Dog', img: trianglePose, benefit: 'Enhanced Emotional Regulation' }
 ];
 
-const YogaPage = () => {
+const AllYogaPage = () => { // Changed component name to AllYogaPage
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -29,28 +29,28 @@ const YogaPage = () => {
   };
 
   return (
-    <div className="yoga-page">
-      <div className="yoga-title-container">
-        <h1 className="yoga-title">Your Yoga Title</h1>
+    <div className="allyoga-page">
+      <div className="allyoga-title-container">
+        <h1 className="allyoga-title">Your Yoga Title</h1>
       </div>
-      <div className="search-container">
+      <div className="allyoga-search-container">
         <input
           type="text"
           placeholder="  Search yoga poses..."
-          className="search-bar"
+          className="allyoga-search-bar"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      <div className="pose-gallery">
+      <div className="allyoga-pose-gallery">
         {filteredPoses.map((pose, index) => (
-          <div key={index} className="pose-card" onClick={() => handlePoseClick(pose.name)}> {/* Add click handler */}
-            <div className="pose-image-container">
-              <img src={pose.img} alt={pose.name} className="pose-image" loading="lazy" />
+          <div key={index} className="allyoga-pose-card" onClick={() => handlePoseClick(pose.name)}>
+            <div className="allyoga-pose-image-container">
+              <img src={pose.img} alt={pose.name} className="allyoga-pose-image" loading="lazy" />
             </div>
-            <div className="pose-details">
-              <h2 className="pose-name">{pose.name}</h2>
-              <p className="pose-benefit">{pose.benefit}</p>
+            <div className="allyoga-pose-details">
+              <h2 className="allyoga-pose-name">{pose.name}</h2>
+              <p className="allyoga-pose-benefit">{pose.benefit}</p>
             </div>
           </div>
         ))}
@@ -59,4 +59,4 @@ const YogaPage = () => {
   );
 };
 
-export default YogaPage;
+export default AllYogaPage; // Changed export name to AllYogaPage

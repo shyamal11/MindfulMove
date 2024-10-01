@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import  roundImage  from '../assets/img/Health___Fitness.png';
+import roundImage from '../assets/img/Health___Fitness.png';
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "./AuthContextProvider";
 import AuthModal from "./modal";
@@ -15,16 +15,16 @@ const nav__links = [
     display: "Programs",
   },
   {
-    path: "/membership",
-    display: "Membership",
-  },
-  {
     path: "/track",
     display: "Track your fitness",
   },
+  {
+    path: "#", // Placeholder for the "Ask Help" link
+    display: "Need Assistance? Consult Doc",
+  },
 ];
 
-const Header = () => {
+const Header = ({ toggleBot }) => {
   const { logout, user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -62,11 +62,16 @@ const Header = () => {
   const handleLogOut = () => {
     localStorage.setItem("logout-event", Date.now());
     logout();
-   // Redirect to the home page after logout
+    // Redirect to the home page after logout
   };
 
   const handleLogIn = () => {
     setIsModalOpen(true);
+  };
+
+  const handleAskHelp = (e) => {
+    e.preventDefault(); // Prevent default link behavior
+    toggleBot(); // Open the bot window
   };
 
   return (
@@ -76,16 +81,24 @@ const Header = () => {
           <div className="nav__wrapper">
             <div className="logo">
               <div className="logo__img">
-              <img src= {roundImage} alt="Health and Fitness Logo" />
+                <img src={roundImage} alt="Health and Fitness Logo" />
               </div>
               <h2>PeacePath</h2>
             </div>
             <div className="navigation">
               <ul className="menu">
                 {nav__links.map((item) => (
-                  <NavLink className="nav__item" key={item.path} to={item.path}>
-                    {item.display}
-                  </NavLink>
+                  <li key={item.path} className="nav__item">
+                    {item.path === "#" ? (
+                      <a href={item.path} onClick={handleAskHelp}>
+                        {item.display}
+                      </a>
+                    ) : (
+                      <NavLink className="nav__item" to={item.path}>
+                        {item.display}
+                      </NavLink>
+                    )}
+                  </li>
                 ))}
               </ul>
             </div>
