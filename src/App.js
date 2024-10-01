@@ -6,7 +6,7 @@ import Footer from "./UI/Footer";
 import Header from "./component/Header";
 import AllRoutes from "./component/AllRoutes";
 import Bot from "./component/bot";
-import HashLoader from "react-spinners/HashLoader"; // Import the spinner component
+import Spinner from "./component/Spinner"; // Import the spinner component
 
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Track loading state
@@ -50,10 +50,7 @@ function App() {
         // Error handling: If a CSS file fails to load, hide the spinner after a fallback delay
         linkElement.onerror = () => {
           console.error(`Error loading CSS file: ${cssFile}`);
-          loadedCount += 1; // Increment the count even if there's an error
-          if (loadedCount === cssFiles.length) {
-            setIsLoading(false); // Hide spinner after error
-          }
+          setTimeout(() => setIsLoading(false), 3000); 
         };
 
         document.head.appendChild(linkElement);
@@ -79,14 +76,7 @@ function App() {
   return (
     <div className="App">
       {isLoading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <HashLoader
-            color="#164B60"
-            loading
-            size={50}
-            speedMultiplier={1.5}
-          />
-        </div>
+      <Spinner />
       ) : (
         <>
           <Header />
