@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import './AllYoga.css'; // Import the CSS file for styling
 import treePose from '../utils/pose_images/tree.png';
@@ -11,9 +11,15 @@ const poseData = [
   { name: 'Cobra', img: cobraPose, benefit: 'Relaxes & reduces stress' },
   { name: 'Warrior', img: warriorPose, benefit: 'Builds strength & stability.' },
   { name: 'Downward Dog', img: trianglePose, benefit: 'Enhanced Emotional Regulation' }
+  
 ];
 
 const AllYogaPage = () => { // Changed component name to AllYogaPage
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top on mount
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate(); // Initialize useNavigate
 

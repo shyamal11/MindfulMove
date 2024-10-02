@@ -1,0 +1,549 @@
+/* Full-page container with background image and blur effect */
+
+
+.questionnaires-container {
+  position: relative;
+  /* Full viewport height */
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #f0f7f4, #ffffff);
+  background-size: cover;
+  background-position: center;
+  padding: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: min-height 0.5s ease; 
+  
+}
+
+.exercises-visible {
+  min-height: auto; /* Remove full viewport height when exercises are displayed */
+  padding: 20px; /* Adjust padding if needed */
+}
+
+/* Blurred background effect */
+.questionnaires-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Use the same image */
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px); /* Apply blur effect */
+  z-index: 0; /* Keep it behind the content */
+  pointer-events: none; /* Prevent interaction with the blurred background */
+}
+
+/* Wrapper box to hold the questionnaire content */
+.wrapper-box {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
+  width: 100%;
+  max-width: 800px;
+  z-index: 1; /* To appear above the blurred background */
+  backdrop-filter: none; /* Ensure no blur is applied to this box */
+  
+}
+
+/* Progress bar container */
+.progress-bar {
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #164b60;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+/* Questionnaire title and description */
+.page-title {
+  font-size: 1.5rem;
+  color: #164b60;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.questionnaire {
+  margin: 20px 120px;
+}
+
+.question-label {
+  font-weight: bold; /* Make text bold */
+  font-size: 1.1em; /* Increase font size */
+  margin-bottom: 15px; /* Optional: add some space below the label */
+  display: block; /* Ensures label takes full width */
+}
+
+.page-description {
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Individual question styling */
+.question {
+  margin-bottom: 25px;
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: 200; /* Make text bold */
+}
+
+
+.question-text {
+  font-weight: bold; /* Make text bold */
+ 
+  margin-bottom: 15px; /* Add space below the question */
+  text-align: center; /* Center the text */
+}
+
+
+
+
+/* Submit button styling */
+.submit-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.submit-button button {
+  background-color: #164b60;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button button:hover {
+  background-color: #0d3644;
+}
+
+/* Report popup styling */
+.report-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.score {
+  font-size: 2em;
+}
+
+.score-card {
+  background: linear-gradient(135deg, #ffa726, #fb8c00);
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.report-content {
+  text-align: center; /* Center text */
+}
+
+.severity-card {
+  background-color: #e7f3ff; /* Light blue background */
+  border: 1px solid #b3d7ff; /* Light blue border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 15px; /* Inner padding */
+  margin: 15px 0; /* Space around card */
+}
+
+.graph-container {
+  margin: 20px 0;
+}
+
+.severity {
+  font-weight: bold; /* Bold text for severity */
+  font-size: 1.5em; /* Larger severity font */
+}
+
+.graph {
+  display: flex;
+  flex-direction: column;
+}
+
+.graph-bar {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.graph-label {
+  flex: 1;
+  font-size: 1em;
+}
+
+.bar {
+  height: 20px;
+  background-color: #42a5f5; /* Change this color as needed */
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.suggestion {
+  font-size: 1.2em;
+  margin: 15px 0;
+}
+
+.report-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.report-actions button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #164b60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.report-actions button:hover {
+  background-color: #145a70;
+}
+
+/* Success and error message styling */
+.success-message, .error-message {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.success-message {
+  color: green;
+}
+
+.error-message {
+  color: red;
+}
+
+
+/* Style for the response option cards */
+.response-options {
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 15px; /* Space between cards */
+  justify-content: center; /* Center align cards */
+  flex-wrap: wrap; /* Allow wrapping */
+  margin-top: 40px;
+  
+}
+
+.card {
+  background-color: #f8f9fa; /* Light background */
+  border: 2px solid transparent; /* Initial border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px;
+  text-align: center; /* Center text */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease; /* Transition effects */
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.card:hover {
+  background-color: #e0f7fa; /* Change background on hover */
+}
+
+.card.selected {
+  background-color: #cfd8dc; /* Background when selected */
+  border-color: #164b60; /* Border color when selected */
+  transform: scale(1.05); /* Slightly enlarge the selected card */
+}
+
+.back-button {
+  background-color: #ccc; /* Background color for back button */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.back-button:hover {
+  background-color: #bbb; /* Darken background on hover */
+}
+
+
+.submit-button {
+  text-align: center;
+  margin-top: 20px; /* Space above the button */
+}
+
+.submit-button button {
+  background-color: #164b60; /* Main button color */
+  color: white;
+  padding: 12px 24px; /* Adjusted padding */
+  font-size: 1.2rem; /* Font size */
+  border: none;
+  border-radius: 6px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Button effects */
+}
+
+.submit-button button:hover {
+  background-color: #0d3644; /* Darker background on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+
+.button-container {
+  display: flex; /* Use flexbox to align buttons horizontally */
+  justify-content: center; /* Center buttons */
+  margin-top: 20px; /* Space above the buttons */
+}
+
+.button-container button {
+  margin: 0 10px; /* Space between buttons */
+  padding: 10px 20px; /* Button padding */
+  background-color: #164b60; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color change */
+}
+
+.button-container button:hover {
+  background-color: #145a70; /* Darker shade on hover */
+}
+
+/* Report Section Styling */
+/* Overall Report Section */
+.report-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+ height: 400px;
+  background: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Left Section */
+.left-section {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+  color: white;
+  border-radius: 16px;
+  padding: 40px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-section h4 {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.result-box {
+  text-align: center;
+}
+
+.score {
+  font-size: 3.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.score span {
+  font-size: 0.4em;
+  vertical-align: top;
+}
+
+.severity {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 1em;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* Right Section */
+.right-section {
+  padding: 30px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.right-section h4 {
+  font-size: 1.4em;
+}
+
+.summary-list {
+  list-style: none; /* Removes default list styling */
+  padding: 0; /* Removes default padding */
+  margin: 0; /* Removes default margin */
+  max-width: 400px; /* Limits the width of the list */
+  border-radius: 8px; /* Rounds the corners of the list */
+}
+
+.summary-list li {
+  display: flex; /* Allows for alignment of label and score */
+  justify-content: space-between; /* Space between label and score */
+  padding: 8px; /* Adds padding for comfort */
+  margin-bottom: 10px; /* Space between list items */
+  border-radius: 8px; /* Rounds the corners of each list item */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.summary-list li:nth-child(1) {
+  background-color: #e7f9e7; /* Light green for minimal anxiety */
+}
+
+.summary-list li:nth-child(2) {
+  background-color: #fff4e5; /* Light orange for mild anxiety */
+}
+
+.summary-list li:nth-child(3) {
+  background-color: #ffe6e6; /* Light red for moderate anxiety */
+}
+
+.summary-list li:nth-child(4) {
+  background-color: #ffcccc; /* Darker red for severe anxiety */
+}
+
+.summary-list li:hover {
+  background-color: #d4edda; /* Light green on hover */
+}
+
+.summary-label {
+ /* Makes labels bold */
+  color: #333; /* Dark text for better readability */
+  font-size: .9em;
+}
+
+.summary-score {
+  font-weight: normal; /* Normal weight for scores */
+  color: #555; /* Slightly lighter text for scores */
+}
+
+
+.summary-score {
+  font-size: 1.1em;
+  color: #888;
+}
+
+.continue-button {
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
+}
+
+.continue-button:hover {
+  background-color: #6a11cb;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Add this CSS to your existing stylesheet */
+
+.suggested-exercises-section {
+  margin-top: 20px; /* Add some space between report and exercises */
+ 
+ 
+ 
+  
+  /* Transition properties */
+  opacity: 0; /* Start hidden */
+  transform: translateY(20px); /* Start slightly lower */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition for fade and slide */
+}
+
+.suggested-exercises-visible {
+  opacity: 1; /* Fully visible */
+  transform: translateY(0); /* Original position */
+}
+
+.suggested-exercises-section h3 {
+  color: #333; /* Dark text for heading */
+  margin-bottom: 10px;
+}
+
+.suggested-exercises-section p {
+  margin: 10px 0;
+  color: #666; /* Grey text for description */
+}
+
+.exercise-list {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0;
+}
+
+.exercise-list li {
+  padding: 5px 0;
+  color: #444; /* Dark grey text for exercise items */
+  border-bottom: 1px solid #ddd; /* Light separator */
+}
+
+.exercise-list li:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}

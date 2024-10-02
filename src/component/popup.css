@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(22, 75, 96, 0.5); /* Darker overlay matching the background theme */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.popup-container {
+  background: #ffffff; /* White background for the popup */
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  max-width: 600px; /* Slightly wider popup */
+  width: 90%; /* Responsive width */
+  text-align: center;
+  transition: transform 0.3s ease; /* Smooth entrance */
+  position: relative; /* Important for positioning the close icon */
+}
+
+.popup-title {
+  font-size: 20px; /* Larger title size */
+  margin-bottom: 20px;
+  color: #164b60; /* Theme color for the title */
+ 
+margin-bottom: 40px;
+}
+
+
+
+.test-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.test-card {
+  background: linear-gradient(145deg, #4ca3ad, #92c5c7); /* Light gradient matching the theme */
+  color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  flex: 1; /* Make cards take equal space */
+  margin: 0 10px; /* Space between cards */
+  text-align: left; /* Align text to the left */
+  position: relative; /* For pseudo-element effect */
+  overflow: hidden; /* To contain pseudo-element */
+}
+
+.test-card:hover {
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Shadow effect */
+}
+
+.card-icon {
+  font-size: 50px; /* Increased icon size */
+  margin-bottom: 10px; /* Space below icon */
+}
+
+.card-title {
+  font-size: 24px; /* Title size */
+  margin: 10px 0;
+  font-weight: bold; /* Bold title for emphasis */
+}
+
+.card-description {
+  font-size: 16px;
+  color: #f0f0f0; /* Lighter text for description */
+}
+
+.close-btn {
+  background-color: #ff6347; /* Primary color */
+  color: white; /* Text color */
+  border: none;
+  padding: 12px 24px; /* More padding */
+  border-radius: 25px; /* Rounded button */
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  margin-top: 20px; /* Space above button */
+}
+
+.close-btn:hover {
+  background-color: #ff8567; /* Lighter shade on hover */
+  transform: scale(1.05); /* Slight scale on hover */
+}
+
+/* Optional styling for better card effects */
+.test-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.1); /* Light overlay effect */
+  opacity: 0;
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.test-card:hover::before {
+  opacity: 1; /* Show overlay on hover */
+}
+.close-icon {
+  position: absolute; /* Position relative to the popup container */
+  top: 15px; /* Adjust as needed */
+  right: 15px; /* Adjust as needed */
+  cursor: pointer; /* Change cursor on hover */
+  width: 24px; /* Set width */
+  height: 24px; /* Set height */
+  color: #164b60; /* Match your theme color */
+  transition: transform 0.2s ease; /* Add a hover effect */
+}
+
+.close-icon:hover {
+  transform: scale(1.1); /* Slightly scale up on hover */
+}

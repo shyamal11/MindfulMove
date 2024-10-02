@@ -1,33 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
 
-.allyoga-page {
-    background: linear-gradient(to bottom, #f0f7f4, #ffffff);
-    min-height: 100vh;
+.suggestedyoga-page {
+    background: linear-gradient(to top, #f0f7f4, #ffffff);
+    height: 600px;
 }
 
-.allyoga-title-container {
+.suggestedyoga-title-container {
     padding-top: 20px; /* Adjust the value as needed */
-    text-align: center; /* Center the title within the container */
+     /* Center the title within the container */
+}
+
+.suggestedyoga-title {
+    text-align: center;
+    color: #009688;
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
    
 }
 
-.allyoga-title {
-    text-align: center;
-    color: #009688;
-    font-size: 2em;
-    margin-bottom: 30px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-}
-
 /* Search bar styling */
-.allyoga-search-container {
+.suggestedyoga-search-container {
     display: flex;
     justify-content: center;
     margin-bottom: 60px;
 }
 
-.allyoga-search-bar {
+.suggestedyoga-search-bar {
     width: 80%;
     max-width: 500px;
     padding: 10px;
@@ -39,13 +40,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.allyoga-search-bar:focus {
+.suggestedyoga-search-bar:focus {
     border-color: #009688;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Gallery styling */
-.allyoga-pose-gallery {
+.suggestedyoga-pose-gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -53,7 +54,7 @@
 }
 
 /* Pose card styling */
-.allyoga-pose-card {
+.suggestedyoga-pose-card {
     display: flex;
     background: #ffffff;
     border-radius: 15px;
@@ -78,13 +79,13 @@
     }
 }
 
-.allyoga-pose-card:hover {
+.suggestedyoga-pose-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* Image container */
-.allyoga-pose-image-container {
+.suggestedyoga-pose-image-container {
     width: 100%;
     height: 200px;
     display: flex;
@@ -93,7 +94,7 @@
     overflow: hidden;
 }
 
-.allyoga-pose-image {
+.suggestedyoga-pose-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -103,13 +104,13 @@
 }
 
 /* Pose details */
-.allyoga-pose-details {
+.suggestedyoga-pose-details {
     padding: 10px;
     text-align: left;
 }
 
 /* Pose name styling */
-.allyoga-pose-name {
+.suggestedyoga-pose-name {
     color: #444;
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -118,7 +119,7 @@
 }
 
 /* Pose benefit */
-.allyoga-pose-benefit {
+.suggestedyoga-pose-benefit {
     background-color: #f1f8e9;
     color: #558b2f;
     font-size: .8em;
@@ -129,7 +130,7 @@
     text-align: center;
 }
 
-.allyoga-pose-benefit::before {
+.suggestedyoga-pose-benefit::before {
     content: '✓ ';
     font-weight: bold;
 }
@@ -143,4 +144,53 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+
+
+
+.button-container-new {
+  display: flex; /* Flexbox for horizontal alignment */
+  justify-content: center; /* Center the buttons */
+}
+
+.button-container-new button {
+  font-family: 'Nunito', sans-serif;
+  margin: 0 1px;
+  padding: 5px 5px;
+  background-color: #86B817; /* Initial green color */
+  color: white;
+  border: none;
+  border-radius: 0; /* Remove any other radius */
+  border: 2px solid #86B817; /* Match the border to the button color */
+  cursor: pointer;
+  font-size: 14px; /* Same size for both buttons */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition on hover */
+  width: 100px; /* Ensure both buttons are same size */
+
+}
+
+/* Style for the left button */
+.button-container-new .try-now-button {
+  border-top-left-radius: 25px; /* Round left side */
+  border-bottom-left-radius: 25px;
+}
+
+/* Style for the right button */
+.button-container-new .remind-me-button {
+  border-top-right-radius: 25px; /* Round right side */
+  border-bottom-right-radius: 25px;
+}
+
+/* Hover effect */
+.button-container-new button:hover {
+  background-color: #6d9c14; /* Darker shade of green on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a little shadow for depth */
+}
+
+/* Active (on click) effect */
+.button-container-new button:active {
+  background-color: #59780f; /* Even darker shade when clicked */
+  box-shadow: none; /* Remove shadow on click */
 }

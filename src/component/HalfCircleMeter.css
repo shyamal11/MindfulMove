@@ -1,0 +1,25 @@
+
+
+.speedometer-container {
+  position: relative;
+  margin-top: -180px; /* Adjust the top margin */
+  margin-left: 10px; /* Adjust the left margin */
+  height : 150px !important;
+}
+
+.speedometer-container .ReactSpeedometer {
+  border: 10px solid #fff; /* Adjust this for gap size */
+  border-radius: 50%; /* Round edges for the gauge */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional shadow for effect */
+}
+
+.speedometer-container h3 {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+
+
+
+
+

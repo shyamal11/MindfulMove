@@ -9,6 +9,10 @@ import Questionnaire from './Questionnaires';
 import ReportTracker from './ReportTracker'
 import AllYoga from './AllYoga'
 import LiveYoga from './LiveYoga';
+import PopUp from './PopUp';
+import Gad from './Gad';
+import Phq9 from './Phq9'
+import SuggestYoga from './SuggestYoga'
 
 
 const AllRoutes = () => {
@@ -22,6 +26,10 @@ const AllRoutes = () => {
       <Route path="/questionnaires" element={<Questionnaire />} />
       <Route path="/all-yoga" element={<AllYoga />} />
       <Route path="/live-yoga" element={<LiveYoga />} />
+      <Route path="/pop-up" element={<PopUp />} />
+      <Route path="/gad7" element={<Gad />} />
+      <Route path="/phq9" element={<Phq9 />} />
+      <Route path="/suggested-yoga" element={<SuggestYoga />} />
       <Route path="*" element={<div>Page Not Found</div>} />
       <Route
         path="/track"

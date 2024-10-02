@@ -24,7 +24,7 @@ function App() {
         'footer.css',
         'hero.css',
         'pricing.css',
-        'Questionnaires.css',
+       
         'exercise.css',
         'modal.css',
         'start.css',
@@ -77,6 +77,7 @@ function App() {
       ) : (
         <>
           <Header toggleBot={toggleBot} /> {/* Pass the toggle function to the Header */}
+
           <AllRoutes />
           <Bot isOpen={showBot} toggleBot={toggleBot} /> {/* Show bot only if visible */}
 
@@ -100,18 +101,19 @@ function App() {
               Ask Virtual Doc
             </button>
             {!showBot && (
-            <div className="ask-doctor-gif">
-              <img
-                src={require('./assets/img/turing-test.gif')} // Replace with your GIF URL
-                alt="AI Animation"
-                className="ask-doctor-gif"
+              <div className="ask-doctor-gif">
+                <img
+                  src={require('./assets/img/turing-test.gif')} // Replace with your GIF URL
+                  alt="AI Animation"
+                  className="ask-doctor-gif"
 
-              />
-            </div>
-             )}
+                />
+              </div>
+            )}
           </div>
 
           <Footer />
+
         </>
       )}
     </div>
