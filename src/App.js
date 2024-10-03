@@ -28,7 +28,6 @@ function App() {
         'exercise.css',
         'modal.css',
         'start.css',
-        'ReportTracker.css',
         'track.css'
       ];
 

@@ -13,6 +13,7 @@ import PopUp from './PopUp';
 import Gad from './Gad';
 import Phq9 from './Phq9'
 import SuggestYoga from './SuggestYoga'
+import Profile from './Profile'
 
 
 const AllRoutes = () => {
@@ -30,6 +31,7 @@ const AllRoutes = () => {
       <Route path="/gad7" element={<Gad />} />
       <Route path="/phq9" element={<Phq9 />} />
       <Route path="/suggested-yoga" element={<SuggestYoga />} />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<div>Page Not Found</div>} />
       <Route
         path="/track"

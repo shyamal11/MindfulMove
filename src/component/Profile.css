@@ -1,0 +1,116 @@
+/* General Styles */
+
+.start-profile{
+  background: linear-gradient(to top, #f0f7f4, #ffffff);
+  height: 800px;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: space-between; /* Keep this to maintain layout */
+  padding: 30px;
+  /* White background for profile */
+  border-radius: 10px; /* Rounded corners */
+   /* Enhanced shadow for depth */
+  margin: 20px auto; /* Center horizontally */
+  max-width: 1300px; /* Max width for the profile container */
+  width: 100%; /* Allow it to be responsive */
+  
+  
+}
+
+.profile-left {
+  flex: .5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #dee2e6; /* Light separator */
+  padding-left: 30px; /* Space for a more balanced layout */
+ 
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 4px solid #6C63FF; /* Vibrant Purple border for profile picture */
+  transition: transform 0.3s; /* Smooth hover effect */
+}
+
+.profile-picture:hover {
+  transform: scale(1.05); /* Scale effect on hover */
+}
+
+.profile-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px; /* Space between left and right */
+}
+
+.charts-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.chart-container {
+  background-color: rgba(255, 255, 255, 0.5); /* Very Light Gray background for charts */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  transition: box-shadow 0.3s; /* Smooth shadow transition */
+  margin-bottom: 20px;
+ 
+}
+
+.chart-container:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+}
+
+h3 {
+  color: #6C63FF; /* Vibrant Purple color for headings */
+  font-weight: 600; /* Slightly lighter font weight */
+  margin-bottom: 10px;
+  font-size: 1.4rem; /* Increased font size for better visibility */
+}
+
+.yoga-donut-charts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.donut-chart-container {
+  width: 200px; /* Increased width for donut charts */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h4 {
+  margin: 10px 0;
+  color: #6C63FF; /* Vibrant Purple color for date labels */
+  font-weight: 500; /* Slightly lighter font weight */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .charts-row {
+    flex-direction: column;
+  }
+
+  .chart-container {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}

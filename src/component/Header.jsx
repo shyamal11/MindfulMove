@@ -15,7 +15,7 @@ const nav__links = [
     display: "Programs",
   },
   {
-    path: "/track",
+    path: "/profile",
     display: "Track your fitness",
   },
   {
