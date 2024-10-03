@@ -4,6 +4,7 @@ import AuthModal from './modal';
 import './gad.css';
 import HalfCircleMeter from './HalfCircleMeter';
 import SuggestedYoga from './SuggestYoga'
+import Swal from "sweetalert2";
 
 const GAD7Questionnaire = () => {
 
@@ -21,7 +22,16 @@ const GAD7Questionnaire = () => {
   const [error, setError] = useState('');
   const [saveReportModalOpen, setSaveReportModalOpen] = useState(false);
   const [showExercises, setShowExercises] = useState(false);
+  const [isReportSaved, setIsReportSaved] = useState(false);
   const exercisesRef = useRef(null);
+
+  const [temporaryData, setTemporaryData] = useState(null);
+
+  const generateRandomUsername = () => {
+    const randomNum = Math.floor(Math.random() * 1000);
+    return `Guest${randomNum}`;
+  };
+
 
   const gad7Questions = [
     'Feeling nervous, anxious, or on edge',
@@ -99,13 +109,30 @@ const GAD7Questionnaire = () => {
   };
 
   const handleSaveReport = async () => {
+
+    const reportPayload = {
+      ...reportData,
+      username: user ? user.username : generateRandomUsername(), // Generate a random username if not logged in
+    };
+
+
     if (!user) {
-      setSaveReportModalOpen(true); // Open login modal if user is not logged in
+      setTemporaryData(reportPayload);
+      Swal.fire({
+        position: "top-mid",
+        icon: "success",
+        title: "Your Data has been Saved for 30 min. Login to store it track yoir fitness.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      setIsReportSaved(true);
+    
+    
     } else {
       try {
         const payload = {
           userId: user.userId,
-          ...reportData,
+          ...reportPayload,
         };
 
         const response = await fetch('http://localhost:5000/api/save-report', {
@@ -121,11 +148,14 @@ const GAD7Questionnaire = () => {
           const errorResponse = await response.json();
           throw new Error(errorResponse.message || 'Failed to save report');
         }
-
-        setSuccessMessage('Report saved successfully!');
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
+        setIsReportSaved(true);
+        Swal.fire({
+          position: "top-mid",
+          icon: "success",
+          title: "Your Data has been Saved for 30 min. Login to store it track yoir fitness.",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       } catch (error) {
         console.error('Error saving report:', error);
         setError('Failed to save report. Please try again later.');
@@ -226,7 +256,17 @@ const GAD7Questionnaire = () => {
                   </li>
                 </ul>
                 <div className="report-actions">
-                  <button type="button" onClick={handleSaveReport}>Save Report</button>
+                  {isReportSaved ? (
+                    <button type="button" onClick={() => {
+                      // Logic to view the saved report
+                      // You can redirect to a report viewing page or display it in a modal
+                      
+                    }}>
+                      View Your Report
+                    </button>
+                  ) : (
+                    <button type="button" onClick={handleSaveReport}>Save Report</button>
+                  )}
                   <button type="button" onClick={() => {
                     setShowReport(false);
                     setShowExercises(false); // Hide the suggested exercises section when closing the report
@@ -234,6 +274,7 @@ const GAD7Questionnaire = () => {
                     Close
                   </button>
                 </div>
+
 
               </div>
             </div>

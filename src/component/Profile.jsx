@@ -7,8 +7,6 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  LineChart,
-  Line,
   AreaChart,
   Area,
   ResponsiveContainer,
@@ -19,6 +17,8 @@ import {
 import './Profile.css';
 
 const Profile = () => {
+
+  
   const user = {
     username: 'JohnDoe',
     profilePicture: 'path_to_profile_picture.jpg',

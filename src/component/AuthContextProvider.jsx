@@ -37,7 +37,6 @@ const AuthContextProvider = ({ children }) => {
   const register = async (username, password) => {
     try {
       // Send a POST request to your server endpoint
-      console.log(process.env.REACT_APP_MONGODB_REGISTER_URL)
       const response = await axios.post(process.env.REACT_APP_MONGODB_REGISTER_URL, {
         username,
         password
@@ -48,7 +47,7 @@ const AuthContextProvider = ({ children }) => {
       await login(username, password);
     } catch (error) {
       // Simplified error handling
-      const errorMessage = error.response?.data?.error || 'An error occurresdd. Please try again later.';
+      const errorMessage = error.response?.data?.error || 'An error occurred. Please try again later.';
       throw new Error(errorMessage);
     }
   };

@@ -42,7 +42,7 @@
     "recharts": "^2.12.7",
     "remixicon": "^2.5.0",
     "styled-components": "^6.1.11",
-    "sweetalert2": "^11.7.5",
+    "sweetalert2": "^11.14.1",
     "swiper": "^9.2.4",
     "victory": "^37.1.1",
     "web-vitals": "^2.1.4"
