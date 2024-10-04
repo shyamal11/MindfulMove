@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { AuthContext } from './AuthContextProvider';
 import {
   BarChart,
   Bar,
