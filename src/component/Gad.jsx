@@ -18,14 +18,14 @@ const GAD7Questionnaire = () => {
   const [gad7Responses, setGad7Responses] = useState(Array(7).fill(''));
   const [showReport, setShowReport] = useState(false);
   const [reportData, setReportData] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage] = useState('');
   const [error, setError] = useState('');
   const [saveReportModalOpen, setSaveReportModalOpen] = useState(false);
   const [showExercises, setShowExercises] = useState(false);
   const [isReportSaved, setIsReportSaved] = useState(false);
   const exercisesRef = useRef(null);
 
-  const [temporaryData, setTemporaryData] = useState(null);
+  const [setTemporaryData] = useState(null);
 
 
   const generateRandomUsername = () => {

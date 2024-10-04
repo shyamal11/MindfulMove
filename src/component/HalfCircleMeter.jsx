@@ -23,7 +23,7 @@ const AnxietyGauge = ({ score }) => {
         clearInterval(interval); // Clear the interval when done
       }
     }, stepTime);
-  }, [score]); // Run the animation effect when score changes
+  }, [score, animatedValue]); // Run the animation effect when score changes
 
 
 

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import React, { useState } from 'react';// Import useNavigate from react-router-dom
 import './SuggestYoga.css'; // Import the CSS file for styling
 import treePose from '../utils/pose_images/tree.png';
 import cobraPose from '../utils/pose_images/cobra.png';
 import warriorPose from '../utils/pose_images/warrior.png';
-import trianglePose from '../utils/pose_images/triangle.jpg';
+
 
 const poseData = [
   { name: 'Tree', img: treePose, benefit: 'Improves Focus and Concentration' },
@@ -13,8 +12,8 @@ const poseData = [
 ];
 
 const SuggestedyogaPage = () => { // Corrected component name to SuggestedyogaPage
-  const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [searchTerm] = useState('');
+  // Initialize useNavigate
 
   // Filter poses based on search term
   const filteredPoses = poseData.filter(pose =>
