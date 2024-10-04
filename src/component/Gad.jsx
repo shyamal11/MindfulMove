@@ -27,6 +27,7 @@ const GAD7Questionnaire = () => {
 
   const [temporaryData, setTemporaryData] = useState(null);
 
+
   const generateRandomUsername = () => {
     const randomNum = Math.floor(Math.random() * 1000);
     return `Guest${randomNum}`;
@@ -109,50 +110,88 @@ const GAD7Questionnaire = () => {
   };
 
   const handleSaveReport = async () => {
-
+    // Retrieve the existing data from sessionStorage
+    const storedData = sessionStorage.getItem('temporaryGAD7Report');
+    const parsedData = storedData ? JSON.parse(storedData) : {};
+  
+    // Use the existing username or generate a new one if not logged in
+    const existingUsername = parsedData.username || (user ? user.username : generateRandomUsername());
+  
+    // Prepare reportPayload with the existing username
     const reportPayload = {
       ...reportData,
-      username: user ? user.username : generateRandomUsername(), // Generate a random username if not logged in
+      username: existingUsername, // Always use existing username
+      date: new Date().toLocaleDateString(),
     };
+  
+    // Check if a test result with the same username already exists
+    const existingTestResults = parsedData.testResults || [];
+  
+    // Remove any existing records with a gad7Score for the same username
+    const updatedTestResults = existingTestResults.filter(result => {
+      // Keep records that do not have a gad7Score for this username
+      return !(result.username === existingUsername &&  result.date === reportPayload.date && result.gad7Score !== undefined);
+    });
 
+    updatedTestResults.push(reportPayload);
 
+  
     if (!user) {
-      setTemporaryData(reportPayload);
+      // For guests (not logged in)
+      // Append the new test result
+  
+      sessionStorage.setItem('temporaryGAD7Report', JSON.stringify({
+        ...parsedData,  // Keep any existing data
+        username: existingUsername, // Retain the username
+        testResults: updatedTestResults,  // Save updated test results
+      }));
+  
+      setTemporaryData({
+        ...reportPayload,
+        testResults: updatedTestResults // Optional: Update temporary data state if needed
+      });
+  
+      console.log("Updated test results:", updatedTestResults);
+       
       Swal.fire({
         position: "top-mid",
         icon: "success",
-        title: "Your Data has been Saved for 30 min. Login to store it track yoir fitness.",
+        title: "🎉 Your data is safely stored for this session!<br /> <br />Want to keep track of your progress? <br /><br />Just <strong>log in</strong>!",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 4000,
       });
       setIsReportSaved(true);
-    
-    
     } else {
+      // For logged-in users
       try {
         const payload = {
-          userId: user.userId,
-          ...reportPayload,
+          testResults: updatedTestResults.map(({ username, ...rest }) => ({
+            ...rest,
+            username: user.username, // Send the logged-in username instead
+          })),
         };
-
-        const response = await fetch('http://localhost:5000/api/save-report', {
+        const response = await fetch(`${process.env.REACT_APP_REPORT_URL}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${user.token}`,
           },
+        
           body: JSON.stringify(payload),
+          
         });
-
+      
+  
         if (!response.ok) {
           const errorResponse = await response.json();
           throw new Error(errorResponse.message || 'Failed to save report');
         }
+  
         setIsReportSaved(true);
         Swal.fire({
           position: "top-mid",
           icon: "success",
-          title: "Your Data has been Saved for 30 min. Login to store it track yoir fitness.",
+          title: "Your Data has been Saved. Thank you!",
           showConfirmButton: false,
           timer: 3000,
         });
@@ -165,6 +204,11 @@ const GAD7Questionnaire = () => {
       }
     }
   };
+  
+  
+  
+
+
 
   return (
     <>
@@ -260,7 +304,7 @@ const GAD7Questionnaire = () => {
                     <button type="button" onClick={() => {
                       // Logic to view the saved report
                       // You can redirect to a report viewing page or display it in a modal
-                      
+
                     }}>
                       View Your Report
                     </button>

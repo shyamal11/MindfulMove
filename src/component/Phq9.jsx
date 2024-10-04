@@ -4,7 +4,7 @@ import AuthModal from './modal';
 import './gad.css';
 import HalfCircleMeter from './HalfCircleMeter';
 import SuggestedYoga from './SuggestYoga'
-
+import Swal from "sweetalert2";
 const GAD7Questionnaire = () => {
 
 
@@ -21,7 +21,15 @@ const GAD7Questionnaire = () => {
   const [error, setError] = useState('');
   const [saveReportModalOpen, setSaveReportModalOpen] = useState(false);
   const [showExercises, setShowExercises] = useState(false);
+  const [isReportSaved, setIsReportSaved] = useState(false);
   const exercisesRef = useRef(null);
+
+  const [temporaryData, setTemporaryData] = useState(null);
+
+  const generateRandomUsername = () => {
+    const randomNum = Math.floor(Math.random() * 1000);
+    return `Guest${randomNum}`;
+  };
 
   const gad7Questions = [
     'Little interest or pleasure in doing things',
@@ -59,8 +67,8 @@ const GAD7Questionnaire = () => {
   };
 
   const analyzeReport = () => {
-    const gad7Score = calculateGAD7Score(gad7Responses);
-    const analyzedData = { gad7Score, gad7Severity: getGAD7Severity(gad7Score) };
+    const phq9Score = calculateGAD7Score(gad7Responses);
+    const analyzedData = { phq9Score, gad7Severity: getGAD7Severity(phq9Score) };
     setReportData(analyzedData);
     setShowReport(true); // Show report and hide other elements
 
@@ -103,33 +111,88 @@ const GAD7Questionnaire = () => {
   };
 
   const handleSaveReport = async () => {
+    // Retrieve the existing data from sessionStorage
+    const storedData = sessionStorage.getItem('temporaryGAD7Report');
+    const parsedData = storedData ? JSON.parse(storedData) : {};
+
+    // Use the existing username or generate a new one if not logged in
+    const existingUsername = parsedData.username || (user ? user.username : generateRandomUsername());
+
+    // Prepare reportPayload with the existing username
+    const reportPayload = {
+      ...reportData,
+      username: existingUsername, // Always use existing username
+      date: new Date().toLocaleDateString(),
+    };
+
+    const existingTestResults = parsedData.testResults || [];
+    const updatedTestResults = existingTestResults.filter(result => {
+      // Keep records that do not have a gad7Score for this username
+      return !(result.username === existingUsername && result.date === reportPayload.date && result.phq9Score !== undefined);
+    });
+  
+    updatedTestResults.push(reportPayload);
+
     if (!user) {
-      setSaveReportModalOpen(true); // Open login modal if user is not logged in
+      // For guests (not logged in)
+      // Append the new test result
+
+      sessionStorage.setItem('temporaryGAD7Report', JSON.stringify({
+        ...parsedData,  // Keep any existing data
+        username: existingUsername, // Retain the username
+        testResults: updatedTestResults,  // Save updated test results
+      }));
+
+      setTemporaryData({
+        ...reportPayload,
+        testResults: updatedTestResults // Optional: Update temporary data state if needed
+        
+      });
+      console.log("sc", updatedTestResults)
+    
+      Swal.fire({
+        position: "top-mid",
+        icon: "success",
+        title: "🎉 Your data is safely stored for this session!<br /> <br />Want to keep track of your progress? <br /><br />Just <strong>log in</strong>!",
+        showConfirmButton: false,
+        timer: 4000,
+      });
+      setIsReportSaved(true);
     } else {
       try {
         const payload = {
-          userId: user.userId,
-          ...reportData,
+          testResults: updatedTestResults.map(({ username, ...rest }) => ({
+            ...rest,
+            username: user.username, // Send the logged-in username instead
+          })),
         };
 
-        const response = await fetch('http://localhost:5000/api/save-report', {
+        
+        const response = await fetch(`${process.env.REACT_APP_REPORT_URL}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${user.token}`,
           },
+        
           body: JSON.stringify(payload),
+          
         });
-
+      
+  
         if (!response.ok) {
           const errorResponse = await response.json();
           throw new Error(errorResponse.message || 'Failed to save report');
         }
-
-        setSuccessMessage('Report saved successfully!');
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
+  
+        setIsReportSaved(true);
+        Swal.fire({
+          position: "top-mid",
+          icon: "success",
+          title: "Your Data has been Saved. Thank you!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       } catch (error) {
         console.error('Error saving report:', error);
         setError('Failed to save report. Please try again later.');
@@ -195,12 +258,12 @@ const GAD7Questionnaire = () => {
                 <div className="result-box">
                   <h4>Your Score</h4>
                   <div className="score">
-                    {reportData.gad7Score} <span>of 21</span>
+                    {reportData.phq9Score} <span>of 27</span>
                   </div>
                   <div className="severity">
                     {reportData.gad7Severity}
                   </div>
-                  <HalfCircleMeter score={reportData.gad7Score} />
+                  <HalfCircleMeter score={reportData.phq9Score} />
 
                 </div>
               </div>
@@ -209,7 +272,7 @@ const GAD7Questionnaire = () => {
               <div className="right-section">
                 <h4>Summary</h4>
                 <p className="description">
-                  You scored higher than {Math.floor((reportData.gad7Score / 21) * 100)}% of people who have taken this test.
+                  You scored higher than {Math.floor((reportData.phq9Score / 27) * 100)}% of people who have taken this test.
                 </p>
                 <ul className="summary-list">
                   <li>
