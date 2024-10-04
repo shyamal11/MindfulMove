@@ -25,8 +25,6 @@ const GAD7Questionnaire = () => {
   const [isReportSaved, setIsReportSaved] = useState(false);
   const exercisesRef = useRef(null);
 
-  const [setTemporaryData] = useState(null);
-
 
   const generateRandomUsername = () => {
     const randomNum = Math.floor(Math.random() * 1000);
@@ -146,13 +144,6 @@ const GAD7Questionnaire = () => {
         testResults: updatedTestResults,  // Save updated test results
       }));
   
-      setTemporaryData({
-        ...reportPayload,
-        testResults: updatedTestResults // Optional: Update temporary data state if needed
-      });
-  
-      console.log("Updated test results:", updatedTestResults);
-       
       Swal.fire({
         position: "top-mid",
         icon: "success",
@@ -199,7 +190,7 @@ const GAD7Questionnaire = () => {
         console.error('Error saving report:', error);
         setError('Failed to save report. Please try again later.');
       } finally {
-        setShowReport(false); // Close report popup after saving
+       // Close report popup after saving
         setSaveReportModalOpen(false); // Close save report modal
       }
     }
@@ -329,6 +320,7 @@ const GAD7Questionnaire = () => {
           {saveReportModalOpen && (
             <AuthModal isOpen={saveReportModalOpen} onClose={() => setSaveReportModalOpen(false)} />
           )}
+
           {successMessage && <p className="success-message">{successMessage}</p>}
           {error && <p className="error-message">{error}</p>}
         </div>

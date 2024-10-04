@@ -21,10 +21,10 @@ const GAD7Questionnaire = () => {
   const [error, setError] = useState('');
   const [saveReportModalOpen, setSaveReportModalOpen] = useState(false);
   const [showExercises, setShowExercises] = useState(false);
-  const [setIsReportSaved] = useState(false);
+  const [isReportSaved, setIsReportSaved] = useState(false);
   const exercisesRef = useRef(null);
 
-  const [setTemporaryData] = useState(null);
+ 
 
   const generateRandomUsername = () => {
     const randomNum = Math.floor(Math.random() * 1000);
@@ -130,7 +130,7 @@ const GAD7Questionnaire = () => {
       // Keep records that do not have a gad7Score for this username
       return !(result.username === existingUsername && result.date === reportPayload.date && result.phq9Score !== undefined);
     });
-  
+
     updatedTestResults.push(reportPayload);
 
     if (!user) {
@@ -143,13 +143,8 @@ const GAD7Questionnaire = () => {
         testResults: updatedTestResults,  // Save updated test results
       }));
 
-      setTemporaryData({
-        ...reportPayload,
-        testResults: updatedTestResults // Optional: Update temporary data state if needed
-        
-      });
-      console.log("sc", updatedTestResults)
-    
+
+
       Swal.fire({
         position: "top-mid",
         icon: "success",
@@ -167,24 +162,24 @@ const GAD7Questionnaire = () => {
           })),
         };
 
-        
+
         const response = await fetch(`${process.env.REACT_APP_REPORT_URL}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${user.token}`,
           },
-        
+
           body: JSON.stringify(payload),
-          
+
         });
-      
-  
+
+
         if (!response.ok) {
           const errorResponse = await response.json();
           throw new Error(errorResponse.message || 'Failed to save report');
         }
-  
+
         setIsReportSaved(true);
         Swal.fire({
           position: "top-mid",
@@ -197,7 +192,7 @@ const GAD7Questionnaire = () => {
         console.error('Error saving report:', error);
         setError('Failed to save report. Please try again later.');
       } finally {
-        setShowReport(false); // Close report popup after saving
+         // Close report popup after saving
         setSaveReportModalOpen(false); // Close save report modal
       }
     }
@@ -211,7 +206,7 @@ const GAD7Questionnaire = () => {
             <>
               <h2 className="page-title">PHQ-9 Questionnaire</h2>
               <p className="page-description">
-              The Patient Health Questionnaire-9 (PHQ-9) is a brief, self-report tool that screens for, diagnoses, monitors, and measures the severity of depression
+                The Patient Health Questionnaire-9 (PHQ-9) is a brief, self-report tool that screens for, diagnoses, monitors, and measures the severity of depression
               </p>
               <div className="progress-bar">
                 <div
@@ -293,7 +288,17 @@ const GAD7Questionnaire = () => {
                   </li>
                 </ul>
                 <div className="report-actions">
-                  <button type="button" onClick={handleSaveReport}>Save Report</button>
+                  {isReportSaved ? (
+                    <button type="button" onClick={() => {
+                      // Logic to view the saved report
+                      // You can redirect to a report viewing page or display it in a modal
+
+                    }}>
+                      View Your Report
+                    </button>
+                  ) : (
+                    <button type="button" onClick={handleSaveReport}>Save Report</button>
+                  )}
                   <button type="button" onClick={() => {
                     setShowReport(false);
                     setShowExercises(false); // Hide the suggested exercises section when closing the report

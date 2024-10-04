@@ -132,6 +132,8 @@ const Profile = () => {
       return acc;
     }, []);
 
+    
+
   return (
     <div className="start-profile">
       <div className="profile-container">
