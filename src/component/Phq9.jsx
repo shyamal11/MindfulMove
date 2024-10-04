@@ -1,4 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
+import { AuthContext } from './AuthContextProvider';
 import AuthModal from './modal';
 import './gad.css';
 import HalfCircleMeter from './HalfCircleMeter';
