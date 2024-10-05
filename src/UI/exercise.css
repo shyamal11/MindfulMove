@@ -24,8 +24,11 @@
 }
 .exercise__wrapper{
 
-  display: flex;
-  align-items: center;
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+  justify-content: center; /* Center items horizontally */
+  margin: 0 auto; /* Center the wrapper */
+  max-width: 1200px; /* Max width for the wrapper */
 
  
 
@@ -33,38 +36,42 @@
 
 .exercise__item{
   display: flex;
-  align-items: center;
-  column-gap: 1.2rem;
-  width: 33%;
-  padding: 10px;
+  flex-direction: column; /* Stack icon and content vertically */
+  align-items: center; /* Center icon and content horizontally */
+  width: 30%; /* Adjust width to control how many items per row */
+  padding: 20px; /* Add padding around each item */
+  margin: 10px; /* Space between items */
+  background: rgba(246, 244, 244, 0.1); /* Slight background for better visibility */
+  border-radius: 10px; /* Rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.exercise__item:hover {
+  transform: scale(1.05); /* Slightly enlarge the item */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Add a shadow */
+  background-color: rgba(255, 255, 255, 0.1); /* Change background color slightly */
 }
 
 .exercise__icon{
-  width: 20%;
-  height: 20%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  border-radius: 5px;
-  background: #fff;
+  margin-bottom: 10px; 
+ 
 }
 .exercise__icon img{
-  width: 100%;
+  width: 50px; /* Fixed size for icons */
+    height: 50px; /* Fixed size for icons */
 }
 .exercise__content{
   width: 80%;
 }
 .exercise__content h4{
-  font-size: 1.3rem;
-  color: #fff;
-  font-weight: 500;
-  /* margin-bottom: 0.6rem; */
-  margin-bottom: 15px;
+  font-size: 1.5rem; /* Title font size */
+  color: #f0ad4e; /* Title color */
+  margin-bottom: 8px; /* Space between title and paragraph */
 }
 .exercise__content p{
-  font-size: 1rem;
-  color: #ffffffb8;
+    font-size: 1rem; /* Paragraph font size */
+    color: #ffffffb8; /* Paragraph color */
+    text-align: center; /* Center the text */
 }
 
 .exButton {
@@ -118,7 +125,7 @@
 /* Button Styles */
 .btn-start {
   padding: 10px 20px; /* Padding for the button */
-  font-size: 1.2rem; /* Font size */
+  font-size: 1rem; /* Font size */
   color: white; /* Text color */
   background-color: transparent; /* Make the button background transparent */
   border: 2px solid #f0ad4e; /* Default border (transparent) */
@@ -128,6 +135,7 @@
   position: relative; /* Position relative for pseudo-elements */
   overflow: hidden; /* To hide any overflowing border */
   animation: borderAnimation 3s infinite alternate;
+
   
 }
 

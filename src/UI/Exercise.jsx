@@ -9,7 +9,7 @@ import ex from "../assets/img/extended.png"
 const Exercise = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to control popup visibility
 
-  
+
 
 
   const handleClick = () => {
@@ -30,39 +30,41 @@ const Exercise = () => {
         </div>
         <div className="exButtonm">
           <div className="exercise__wrapper">
-            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
-              <span className="exercise__icon"><img src={lunges} alt="err" /></span>
+            <a href="/assessment" className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
               <div className="exercise__content">
+                <span className="exercise__icon"><img src={lunges} alt="err" /></span>
                 <h4>Assessment</h4>
                 <p>Include stress, anxiety, and depression assessments to understand your mental well-being.</p>
               </div>
-            </div>
-            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
-              <span className="exercise__icon"><img src={yoga} alt="err" /></span>
+            </a>
+
+            <a href="/yoga" className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
               <div className="exercise__content">
+                <span className="exercise__icon"><img src={yoga} alt="err" /></span>
                 <h4>Suggested Yoga</h4>
                 <p>Based on your assessment, we recommend yoga to improve flexibility, mental clarity, and overall well-being.</p>
               </div>
-            </div>
-            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
-              <span className="exercise__icon"><img src={ex} alt="err" /></span>
+            </a>
+
+            <a href="/ai-instructor" className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
               <div className="exercise__content">
+                <span className="exercise__icon"><img src={ex} alt="err" /></span>
                 <h4>Yoga with AI Instructor</h4>
                 <p>Experience live yoga sessions guided by AI instructors for personalized and interactive sessions.</p>
               </div>
-            </div>
+            </a>
           </div>
+
+
           <div className="exButton">
-          <div className="start-line"></div> 
-    <div className="mental-well-being-message">
-        Ready to nurture your mental well-being?
-    </div>
-    <button onClick={handleClick} className="btn btn-start">
-    Begin Your Assessment 
-    </button>
-</div>
-
-
+            <div className="start-line"></div>
+            <div className="mental-well-being-message">
+              Ready to nurture your mental well-being?
+            </div>
+            <button onClick={handleClick} className="btn btn-start">
+              Begin  Assessment
+            </button>
+          </div>
 
         </div>
       </div>

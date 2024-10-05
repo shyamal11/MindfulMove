@@ -14,6 +14,7 @@ import Gad from './Gad';
 import Phq9 from './Phq9'
 import SuggestYoga from './SuggestYoga'
 import Profile from './Profile'
+import Exercise from '../UI/Exercise';
 
 
 const AllRoutes = () => {
@@ -32,6 +33,7 @@ const AllRoutes = () => {
       <Route path="/phq9" element={<Phq9 />} />
       <Route path="/suggested-yoga" element={<SuggestYoga />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/exercise" element={<Exercise />} />
       <Route path="*" element={<div>Page Not Found</div>} />
       <Route
         path="/track"
