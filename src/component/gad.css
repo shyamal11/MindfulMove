@@ -403,14 +403,14 @@
 }
 
 .description {
-  font-size: 1em;
+  font-size: .9em;
   margin-bottom: 10px;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 /* Right Section */
 .right-section {
-  padding: 30px;
+  padding: 20px;
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -418,7 +418,8 @@
 }
 
 .right-section h4 {
-  font-size: 1.4em;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 .summary-list {

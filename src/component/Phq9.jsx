@@ -79,7 +79,7 @@ const GAD7Questionnaire = () => {
       setShowExercises(true);
       // Scroll down a bit to the suggested exercises section
       window.scrollTo({ top: window.scrollY + 50, behavior: 'smooth' }); // Scrolls down by 300 pixels
-    }, 4000); // Change to 3000 for 3 seconds
+    }, 3000); // Change to 3000 for 3 seconds
   };
 
 
@@ -111,6 +111,22 @@ const GAD7Questionnaire = () => {
       return 'Minimal depression';
     }
   };
+
+  const getSummaryMessage = (score) => {
+    if (score >= 0 && score <= 4) {
+      return "Great job! Your score indicates minimal depression, which typically does not require treatment. Keep focusing on what makes you happy!";
+    } else if (score >= 5 && score <= 9) {
+      return " You may only need some watchful waiting. Regular check-ins can be helpful, and don’t hesitate to reach out if you need support.";
+    } else if (score >= 10 && score <= 14) {
+      return "It's important to take care of yourself. A treatment plan that includes counseling or follow-up could be beneficial.";
+    } else if (score >= 15 && score <= 19) {
+      return "Your score indicates more significant symptoms. It’s advisable to start treatment, including pharmacotherapy or psychotherapy. ";
+    } else {
+      return "Your score indicates severe symptoms. Immediate initiation of treatment and referral to a mental health specialist is recommended. ";
+    }
+  };
+  
+  
 
   const handleBackToTest = () => {
     navigate('/exercise');
@@ -163,7 +179,7 @@ const GAD7Questionnaire = () => {
         icon: "success",
         title: "🎉 Your data is safely stored for this session!<br /> <br />Want to keep track of your progress? <br /><br />Just <strong>log in</strong>!",
         showConfirmButton: false,
-        timer: 4000,
+        timer: 3000,
       });
       setIsReportSaved(true);
     } else {
@@ -280,7 +296,7 @@ const GAD7Questionnaire = () => {
               <div className="right-section">
                 <h4>Summary</h4>
                 <p className="description">
-                  You scored higher than {Math.floor((reportData.phq9Score / 27) * 100)}% of people who have taken this test.
+                {getSummaryMessage(reportData.phq9Score)}
                 </p>
                 <ul className="summary-list">
                   <li>

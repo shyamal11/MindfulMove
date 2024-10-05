@@ -77,7 +77,7 @@ const GAD7Questionnaire = () => {
       setShowExercises(true);
       // Scroll down a bit to the suggested exercises section
       window.scrollTo({ top: window.scrollY + 50, behavior: 'smooth' }); // Scrolls down by 300 pixels
-    }, 4000); // Change to 3000 for 3 seconds
+    }, 3000); // Change to 3000 for 3 seconds
   };
 
 
@@ -107,6 +107,21 @@ const GAD7Questionnaire = () => {
       return 'Minimal anxiety';
     }
   };
+
+
+  const getGAD7Message = (score) => {
+    if (score >= 15) {
+      return "It's important to seek support. Remember, reaching out for help is a sign of strength.";
+    } else if (score >= 10) {
+      return " Consider discussing your feelings with someone you trust. You're not alone in this!";
+    } else if (score >= 5) {
+      return "It's perfectly normal to feel this way sometimes. Regular self-care and check-ins can really help.";
+    } else {
+      return "Great job! Minimal anxiety suggests you're managing well. Keep focusing on the things that bring you joy!";
+    }
+  };
+  
+  
 
   const handleBackToTest = () => {
     navigate('/exercise');
@@ -161,7 +176,7 @@ const GAD7Questionnaire = () => {
         icon: "success",
         title: "🎉 Your data is safely stored for this session!<br /> <br />Want to keep track of your progress? <br /><br />Just <strong>log in</strong>!",
         showConfirmButton: false,
-        timer: 4000,
+        timer: 3000,
       });
       setIsReportSaved(true);
       
@@ -284,7 +299,7 @@ const GAD7Questionnaire = () => {
               <div className="right-section">
                 <h4>Summary</h4>
                 <p className="description">
-                  You scored higher than {Math.floor((reportData.gad7Score / 21) * 100)}% of people who have taken this test.
+                {getGAD7Message(reportData.gad7Score)}
                 </p>
                 <ul className="summary-list">
                   <li>

@@ -5,12 +5,18 @@ import treePose from '../utils/pose_images/tree.png';
 import cobraPose from '../utils/pose_images/cobra.png';
 import warriorPose from '../utils/pose_images/warrior.png';
 import trianglePose from '../utils/pose_images/triangle.jpg';
+import dogPose from '../utils/pose_images/dog.png';
+import chairPose from '../utils/pose_images/chair.png';
+import ShoulderstandPose from '../utils/pose_images/Shoulderstand.png';
 
 const poseData = [
   { name: 'Tree', img: treePose, benefit: 'Improves Focus and Concentration' },
   { name: 'Cobra', img: cobraPose, benefit: 'Relaxes & reduces stress' },
   { name: 'Warrior', img: warriorPose, benefit: 'Builds strength & stability.' },
-  { name: 'Downward Dog', img: trianglePose, benefit: 'Enhanced Emotional Regulation' }
+  { name: 'triangle', img: trianglePose, benefit: 'Enhanced Emotional Regulation' },
+  { name: 'Downward Dog', img: dogPose, benefit: 'Relaxes & reduces stress' },
+  { name: 'chair', img: chairPose, benefit: 'Builds strength & stability.' },
+  { name: 'Shoulder Stand ', img: ShoulderstandPose, benefit: 'Enhanced Emotional Regulation' }
   
 ];
 

@@ -14,6 +14,10 @@ let interval;
 let flag = false; // Flag to capture time when pose is detected
 
 const Yoga = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to the top on mount
+  }, []); // Empty dependency array ensures this runs only once on mount
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const pose = queryParams.get('pose') || 'Tree'; // Get the 'pose' query parameter from URL

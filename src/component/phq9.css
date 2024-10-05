@@ -400,7 +400,7 @@
 }
 
 .description {
-  font-size: 1em;
+  font-size: .6em;
   margin-bottom: 10px;
   opacity: 0.8;
 }
@@ -415,7 +415,8 @@
 }
 
 .right-section h4 {
-  font-size: 1.4em;
+  font-size: 1em;
+  text-align: center;
 }
 
 .summary-list {

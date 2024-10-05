@@ -1,249 +1,354 @@
 .yoga-page {
-    background: linear-gradient(to bottom, #f0f7f4, #ffffff);
-    height: 600px;
-   border-radius: 10px;
-   margin-bottom: 40px;
+  background: linear-gradient(to bottom, #f0f7f4, #ffffff);
+  height: 600px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+padding: 50px;
+margin-top: 50px;
+
 }
 
 .yoga-title-container {
-    padding-top: 20px; /* Adjust the value as needed */
-    text-align: center; /* Center the title within the container */
-   
+  padding-top: 10px; /* Adjust the value as needed */
+  text-align: center; /* Center the title within the container */
 }
 
 .yoga-title {
-    text-align: center;
-    color: #009688;
-    font-size: 2em;
-    margin-bottom: 30px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    margin-bottom: 100px;
-    margin-top: 30px;
+  text-align: center;
+  color: #009688;
+  font-size: 2em;
+  margin-bottom: 30px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin-bottom: 60px;
+  margin-top: 30px;
 }
 
 /* Search bar styling */
 .search-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
 }
 
 .search-bar {
-    width: 80%;
-    max-width: 500px;
-    padding: 10px;
-    border-radius: 30px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    outline: none;
-    transition: 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 500px;
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  outline: none;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar:focus {
-    border-color: #009688;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  border-color: #009688;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Gallery styling */
 .pose-gallery {
-    display: flex;
-    flex-direction: row; /* Ensure items are aligned horizontally */
-    gap: 20px; /* Space between the cards */
-    padding: 20px 0; /* Padding for aesthetics */
-    scroll-behavior: smooth; /* Smooth scroll */
-    width: 100%; /* Full width */
-    transition: transform 0.3s ease; /* Smooth transition for sliding */
+  display: flex;
+  flex-direction: row; /* Ensure items are aligned horizontally */
+  gap: 20px; /* Space between the cards */
+  padding: 20px 0; /* Padding for aesthetics */
+  scroll-behavior: smooth; /* Smooth scroll */
+  width: 100%; /* Full width */
+  transition: transform 0.3s ease; /* Smooth transition for sliding */
 }
 
 /* Pose card styling */
 .pose-card {
-    flex: 0 0 300px; /* Fixed width for cards */
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    flex-direction: column;
-    overflow: hidden;
-    animation: fadeInZoom 0.5s ease-out;
-    margin: 0;
-    
+  flex: 0 0 300px; /* Fixed width for cards */
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  flex-direction: column;
+  overflow: hidden;
+  animation: fadeInZoom 0.5s ease-out;
+  margin: 0 10px; /* Add horizontal margin for spacing */
+ 
 }
 
 @keyframes fadeInZoom {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .pose-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 /* Image container */
 .pose-image-container {
-    width: 100%;
-    height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  width: 100%;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  gap: 10px;
 }
 
 .pose-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom: 2px solid #f9d8d5;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 2px solid #f9d8d5;
 }
 
 /* Pose details */
 .pose-details {
-    padding: 10px;
-    text-align: left;
+  padding: 10px;
+  text-align: left;
 }
 
 /* Pose name styling */
 .pose-name {
-    color: #444;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    font-weight: 600;
-    text-align: center;
+  color: #444;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-align: center;
 }
 
 /* Pose benefit */
 .pose-benefit {
-    background-color: #f1f8e9;
-    color: #558b2f;
-    font-size: .8em;
-    padding: 6px;
-    border-radius: 10px;
-    font-style: italic;
-    margin-top: 10px;
-    text-align: center;
+  background-color: #f1f8e9;
+  color: #558b2f;
+  font-size: .8em;
+  padding: 6px;
+  border-radius: 10px;
+  font-style: italic;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .pose-benefit::before {
-    content: '✓ ';
-    font-weight: bold;
+  content: '✓ ';
+  font-weight: bold;
 }
 
 .gallery-container {
-    display: flex; /* Flex to align arrows and gallery */
-    align-items: center; /* Center vertically */
-    position: relative; /* Position for absolute arrows */
+  display: flex; /* Flex to align arrows and gallery */
+  align-items: center; /* Center vertically */
+  position: relative; /* Position for absolute arrows */
 }
 
 .scroll-button {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    border-radius: 50%; /* Round shape */
-    width: 40px; /* Width of the button */
-    height: 40px; /* Height of the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    position: absolute; /* Positioning */
-    z-index: 1; /* Above other elements */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 50%; /* Round shape */
+  width: 40px; /* Width of the button */
+  height: 40px; /* Height of the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  position: absolute; /* Positioning */
+  z-index: 1; /* Above other elements */
 }
 
 .scroll-button.left {
-    left: 10px; /* Position left arrow */
+  left: 10px; /* Position left arrow */
 }
 
 .scroll-button.right {
-    right: 10px; /* Position right arrow */
+  right: 10px; /* Position right arrow */
 }
 
 .scroll-button:hover {
-    background-color: rgba(0, 0, 0, 0.8); /* Darker on hover */
+  background-color: rgba(0, 0, 0, 0.8); /* Darker on hover */
 }
 
-
-
 .glide {
-    width: 100%; /* Full width of the carousel */
-    margin: 0 auto; /* Center the carousel */
-    position: relative;
-    
+  width: 100%; /* Full width of the carousel */
+  margin: 0 auto; /* Center the carousel */
+  position: relative;
 }
 
 .glide__track {
-    overflow: hidden; /* Hide overflow to ensure only slides are shown */
+  overflow: hidden; /* Hide overflow to ensure only slides are shown */
 }
 
 .glide__slides {
-    display: flex; /* Align slides in a row */
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
-    gap: -30px; /* Set a smaller gap between slides */
+  display: flex; /* Align slides in a row */
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  gap: -30px; /* Set a smaller gap between slides */
 }
 
 .glide__slide {
-    display: flex; /* Flexbox for slide content */
-    justify-content: center; /* Center content */
-    align-items: center; /* Center content vertically */
-  
- 
+  display: flex; /* Flexbox for slide content */
+  justify-content: center; /* Center content */
+  align-items: center; /* Center content vertically */
 }
 
 .glide__arrows {
-    position: absolute; /* Position arrows absolutely */
-    top: 50%; /* Center vertically */
-    width: 100%; /* Full width of the carousel */
-    transform: translateY(-50%); /* Adjust for center alignment */
-    display: flex; /* Flexbox for horizontal alignment */
-    justify-content: space-between; /* Space out arrows */
-    pointer-events: none; /* Prevent events on the container */
+  position: absolute; /* Position arrows absolutely */
+  top: 50%; /* Center vertically */
+  width: 100%; /* Full width of the carousel */
+  transform: translateY(-50%); /* Adjust for center alignment */
+  display: flex; /* Flexbox for horizontal alignment */
+  justify-content: space-between; /* Space out arrows */
+  pointer-events: none; /* Prevent events on the container */
 }
 
 /* Button styles */
 .glide__arrow {
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    padding: 10px; /* Padding for buttons */
-    cursor: pointer; /* Pointer cursor */
-    transition: background 0.3s; /* Smooth background transition */
-    pointer-events: auto; /* Enable events on arrows */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  padding: 10px; /* Padding for buttons */
+  cursor: pointer; /* Pointer cursor */
+  transition: background 0.3s; /* Smooth background transition */
+  pointer-events: auto; /* Enable events on arrows */
 }
 
-
-
 .glide__arrow:hover {
-    background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+  background: rgba(0, 0, 0, 0.8); /* Darker background on hover */
 }
 
 /* Ensure the pose cards fit within the slide */
-
 .view-all-container {
-    display: flex;
-    justify-content: center; /* Center the button */
-    margin-top: 40px; /* Space between gallery and button */
+  display: flex;
+  justify-content: center; /* Center the button */
+  margin-top: 40px; /* Space between gallery and button */
 }
 
 .view-all-button {
-    background-color: #009688; /* Match the theme color */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: 30px; /* Rounded corners */
-    padding: 12px 24px; /* Padding for size */
-    font-size: 1.2em; /* Larger font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition */
+  background-color: #009688; /* Match the theme color */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 30px; /* Rounded corners */
+  padding: 12px 24px; /* Padding for size */
+  font-size: 1.2em; /* Larger font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 .view-all-button:hover {
-    background-color: #00796b; /* Darker color on hover */
+  background-color: #00796b; /* Darker color on hover */
+}
+
+.wrap {
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  left: -100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  transform: translateX(100%);
+  gap: 40px;
+}
+
+@media (min-width: 30em) {
+  .carousel {
+    left: -33.33333%;
+    transform: translateX(33.33333%);
+  }
+}
+@media (min-width: 40em) {
+  .carousel {
+    left: -20%;
+    transform: translateX(20%);
+  }
+}
+
+.carousel.is-reversing {
+  transform: translateX(-100%);
+}
+
+@media (min-width: 30em) {
+  .carousel.is-reversing {
+    transform: translateX(-33.33333%);
+  }
+}
+@media (min-width: 40em) {
+  .carousel.is-reversing {
+    transform: translateX(-20%);
+  }
+}
+
+.carousel.is-set {
+  transform: none;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.carousel-seat {
+  
+  flex: 1 0 100%;
+  order: 2;
+}
+
+
+
+@media (min-width: 30em) {
+  .carousel-seat {
+    flex-basis: 33.33333%;
+  }
+}
+@media (min-width: 40em) {
+  .carousel-seat {
+    flex-basis: 25%;
+  }
+}
+
+.carousel-seat.is-ref {
+  order: 1;
+}
+
+h2 {
+  color: #aaa;
+  font-size: 2em; /* Adjust font size */
+  font-weight: normal;
+  margin: 0;
+  padding: 0.6em 0;
+  text-align: center;
+}
+
+
+.dotss-container {
+  display: flex; /* Flexbox for horizontal alignment */
+  justify-content: center; /* Center the dots */
+  margin: 20px 0; /* Space above and below the dots */
+}
+
+.dots {
+  width: 10px; /* Width of the dot */
+  height: 10px; /* Height of the dot */
+  border-radius: 50%; /* Make it circular */
+  background-color: #ccc; /* Default color */
+  margin: 0 5px; /* Space between dots */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.dots.active {
+  background-color: #009688; /* Color for the active dot */
+}
+
+.dots:hover {
+  background-color: #00796b; /* Darker color on hover */
+}
+
+.title_yoga {
+  color: var(--heading-color);
+  font-weight: 700;
 }

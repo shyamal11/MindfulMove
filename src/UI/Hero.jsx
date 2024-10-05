@@ -27,13 +27,13 @@ const Hero = () => {
         <div className="hero__wrapper">
           <div className="hero__content">
             <h2 className="section__title" data-aos-duration="1000" data-aos="fade-up">
-              Exercise is the key to a <span className="highlights">Healthy</span> Lifestyle
+            Discover a Healthier You <span className="highlights">Assess, Act, Achieve</span> 
             </h2>
             <p data-aos-duration="1100" data-aos="fade-up" data-aos-delay="100">
-              Regular exercise is a crucial component of a healthy lifestyle.
-              <br /> It has numerous benefits for physical and mental health, including reducing
-              the risk of chronic diseases, improving cardiovascular function,
-              <br /> enhancing mood, reducing stress, and promoting better sleep.
+            Elevate your mental well-being with our all-in-one platform! 
+              <br /> Get tailored assessments for anxiety and depression, discover personalized <br /> strategies for growth
+              and harness the power of AI-driven fitness coaching. <br /> <br /> 
+              Your journey to optimal health starts here!
             </p>
 
             <div

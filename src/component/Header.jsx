@@ -20,7 +20,7 @@ const nav__links = [
   },
   {
     path: "#", // Placeholder for the "Ask Help" link
-    display: "Need Assistance? Consult Doc",
+    display: "Need Assistance?",
   },
 ];
 
