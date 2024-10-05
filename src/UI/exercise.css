@@ -1,0 +1,154 @@
+.exercise__top{
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.exercise__top h2{
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+.exercise__top p{
+  color: var(--heading-color);
+  font-size: 1rem;
+  line-height: 28px;
+}
+.exButtonm{
+  flex-direction: column;
+  background: var(--bg-gradient);
+  border-radius: 0.3rem;
+  border-radius: 0.5rem;
+  justify-content: space-between;
+  padding: 40px 30px;
+ 
+}
+.exercise__wrapper{
+
+  display: flex;
+  align-items: center;
+
+ 
+
+}
+
+.exercise__item{
+  display: flex;
+  align-items: center;
+  column-gap: 1.2rem;
+  width: 33%;
+  padding: 10px;
+}
+
+.exercise__icon{
+  width: 20%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  background: #fff;
+}
+.exercise__icon img{
+  width: 100%;
+}
+.exercise__content{
+  width: 80%;
+}
+.exercise__content h4{
+  font-size: 1.3rem;
+  color: #fff;
+  font-weight: 500;
+  /* margin-bottom: 0.6rem; */
+  margin-bottom: 15px;
+}
+.exercise__content p{
+  font-size: 1rem;
+  color: #ffffffb8;
+}
+
+.exButton {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically */
+  text-align: center; /* Center text within the elements */
+}
+.start-line {
+  width: 50%; /* Full width */
+  height: 2px; /* Height of the line */
+  background: linear-gradient(45deg, #FF0080, #00BFFF, #FF8C00); /* Gradient color */
+  margin-bottom: 10px; /* Space below the line */
+  margin-top: 30px;
+}
+
+@keyframes gradient-animation {
+  0% {
+      background-position: 0% 50%; /* Start at the left */
+  }
+  100% {
+      background-position: 100% 50%; /* End at the right */
+  }
+}
+
+.mental-well-being-message {
+  font-size: 1.5rem; /* Adjust font size */
+  color: white; /* Text color */
+  padding: 15px 20px; /* Padding around the text */
+  border: 0; /* Remove any border */
+  border-radius: 20px; /* Rounded corners */
+  position: relative; /* Position for the animated border */
+  margin-bottom: 10px; /* Space between message and button */
+  text-align: center; /* Center the text */
+}
+
+/* Create a pseudo-element for the top border */
+.mental-well-being-message::before {
+  content: ""; /* Empty content for pseudo-element */
+  position: absolute; /* Position relative to the element */
+  top: 0; /* Start at the top */
+  left: 0; /* Start at the left */
+  width: 100%; /* Full width */
+  height: 5px; /* Set height of the border */
+  
+  border-radius: 20px 20px 0 0; /* Rounded top corners */
+  z-index: -1; /* Place behind the text */
+}
+
+/* Button Styles */
+.btn-start {
+  padding: 10px 20px; /* Padding for the button */
+  font-size: 1.2rem; /* Font size */
+  color: white; /* Text color */
+  background-color: transparent; /* Make the button background transparent */
+  border: 2px solid #f0ad4e; /* Default border (transparent) */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition for color changes */
+  position: relative; /* Position relative for pseudo-elements */
+  overflow: hidden; /* To hide any overflowing border */
+  animation: borderAnimation 3s infinite alternate;
+  
+}
+
+
+
+
+@keyframes borderAnimation {
+  0% {
+      border-color: #f0ad4e; /* Start color */
+  }
+  50% {
+      border-color: #FF0080; /* Middle color */
+  }
+  100% {
+      border-color: #00BFFF; /* End color */
+  }
+}
+
+.btn-start:hover {
+  background-color: #e65100; /* Darker shade on hover */
+  transform: translateY(-2px); /* Lift effect on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  border: 2px solid #e65100;
+}

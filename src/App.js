@@ -25,7 +25,7 @@ function App() {
         'hero.css',
         'pricing.css',
        
-        'exercise.css',
+        
         'modal.css',
         'start.css',
         'track.css'

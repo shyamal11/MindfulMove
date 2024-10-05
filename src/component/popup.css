@@ -1,100 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+/* popup.css */
 
+/* Overlay Styles */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(22, 75, 96, 0.5); /* Darker overlay matching the background theme */
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8); /* Dark overlay for emphasis */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
-  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
 }
 
+/* Container Styles */
 .popup-container {
-  background: #ffffff; /* White background for the popup */
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  max-width: 600px; /* Slightly wider popup */
-  width: 90%; /* Responsive width */
+  background: linear-gradient(135deg, #e0f7fa, #80deea); /* Soft gradient background */
+  border-radius: 20px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 600px; /* Increased max-width for side-by-side layout */
+  padding: 30px;
   text-align: center;
-  transition: transform 0.3s ease; /* Smooth entrance */
-  position: relative; /* Important for positioning the close icon */
+  position: relative;
+  animation: slideIn 0.3s ease;
 }
 
+/* Close Icon Styles */
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.close-icon:hover {
+  transform: rotate(90deg);
+}
+
+/* Title and Subtitle Styles */
 .popup-title {
-  font-size: 20px; /* Larger title size */
-  margin-bottom: 20px;
-  color: #164b60; /* Theme color for the title */
- 
-margin-bottom: 40px;
+  font-size: 2rem; /* Increased title size for impact */
+  color: #00796b; /* Teal color for titles */
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif; /* Modern font */
+  font-weight: 600; /* Bold font weight */
 }
 
+.popup-subtitle {
+  font-size: 1.1rem;
+  color: #004d40; /* Darker teal for subtitles */
+  margin-bottom: 20px;
+  font-style: italic; /* Italic style for a softer look */
+}
 
-
+/* Options Container */
 .test-options {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  display: flex; /* Use flexbox for side-by-side layout */
+  justify-content: space-between; /* Space cards evenly */
+  gap: 20px; /* Space between cards */
 }
 
+/* Test Card Styles */
 .test-card {
-  background: linear-gradient(145deg, #4ca3ad, #92c5c7); /* Light gradient matching the theme */
-  color: #fff;
+  background: white; /* White background for cards */
   border-radius: 15px;
   padding: 20px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-  flex: 1; /* Make cards take equal space */
-  margin: 0 10px; /* Space between cards */
-  text-align: left; /* Align text to the left */
-  position: relative; /* For pseudo-element effect */
-  overflow: hidden; /* To contain pseudo-element */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-left: 5px solid #00796b; /* Teal left border for style */
+  position: relative; /* Position for pseudo-elements */
+  overflow: hidden; /* Ensures pseudo-elements don't overflow */
+  flex: 1; /* Allow cards to grow equally */
 }
 
+/* Responsive styles for smaller screens */
+@media (max-width: 600px) {
+  .test-options {
+    flex-direction: column; /* Stack cards on smaller screens */
+  }
+}
+
+/* Card Hover Effects */
 .test-card:hover {
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* Card Icon and Title Styles */
 .card-icon {
-  font-size: 50px; /* Increased icon size */
-  margin-bottom: 10px; /* Space below icon */
+  font-size: 2.5rem; /* Larger icon for emphasis */
+  color: #00796b; /* Matching color for icons */
 }
 
 .card-title {
-  font-size: 24px; /* Title size */
-  margin: 10px 0;
-  font-weight: bold; /* Bold title for emphasis */
+  font-size: 1.5rem; /* Increased title size for emphasis */
+  color: #004d40; /* Darker teal for titles */
+  margin: 10px 0 5px;
+  font-weight: 600; /* Bold titles */
 }
 
+/* Card Description Styles */
 .card-description {
-  font-size: 16px;
-  color: #f0f0f0; /* Lighter text for description */
+  font-size: 1rem;
+  color: #555; /* Darker gray for better contrast */
+  margin: 0;
 }
 
-.close-btn {
-  background-color: #ff6347; /* Primary color */
-  color: white; /* Text color */
-  border: none;
-  padding: 12px 24px; /* More padding */
-  border-radius: 25px; /* Rounded button */
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
-  margin-top: 20px; /* Space above button */
-}
-
-.close-btn:hover {
-  background-color: #ff8567; /* Lighter shade on hover */
-  transform: scale(1.05); /* Slight scale on hover */
-}
-
-/* Optional styling for better card effects */
+/* Add a gradient overlay on hover */
 .test-card::before {
   content: '';
   position: absolute;
@@ -102,25 +119,33 @@ margin-bottom: 40px;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.1); /* Light overlay effect */
+  background: rgba(255, 255, 255, 0.4); /* Light overlay */
+  border-radius: 15px;
   opacity: 0;
-  transition: opacity 0.3s ease; /* Smooth transition */
+  transition: opacity 0.3s;
 }
 
 .test-card:hover::before {
   opacity: 1; /* Show overlay on hover */
 }
-.close-icon {
-  position: absolute; /* Position relative to the popup container */
-  top: 15px; /* Adjust as needed */
-  right: 15px; /* Adjust as needed */
-  cursor: pointer; /* Change cursor on hover */
-  width: 24px; /* Set width */
-  height: 24px; /* Set height */
-  color: #164b60; /* Match your theme color */
-  transition: transform 0.2s ease; /* Add a hover effect */
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.close-icon:hover {
-  transform: scale(1.1); /* Slightly scale up on hover */
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

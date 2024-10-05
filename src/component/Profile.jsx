@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from './AuthContextProvider';
 import {
   BarChart,
   Bar,
@@ -17,12 +18,12 @@ import {
 import './Profile.css';
 
 const Profile = () => {
-  
-  // Example user data
-  const [user, setUser] = useState({ username: 'Guest', profilePicture: 'path_to_profile_picture.jpg' });
-
-  // Temporary data state
+  const { user } = useContext(AuthContext);
   const [temporaryData, setTemporaryData] = useState(null);
+  const [latestTestScoresData, setLatestTestScoresData] = useState([]);
+  const [yogaSessionsData, setYogaSessionsData] = useState([]);
+  const [yogaDonutData, setYogaDonutData] = useState([]);
+  const [userTest, setUser] = useState({ username: 'Guest', profilePicture: 'path_to_profile_picture.jpg' });
 
   // Sample data
   const sampleTestScores = [
@@ -43,103 +44,182 @@ const Profile = () => {
     { date: '10/01', yogaType: 'XYZ Yoga', duration: 50 },
   ];
 
-  // Fetch data from local storage on component mount
   useEffect(() => {
-    const storedData = sessionStorage.getItem('temporaryGAD7Report');
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
-      setTemporaryData(parsedData);
-      // Update user state if username is stored in local storage
-      if (parsedData.username) {
-        setUser({ username: parsedData.username, profilePicture: 'path_to_profile_picture.jpg' }); // Update with actual profile picture if available
+    if (!user) {
+      // Case 1: No user logged in
+      const storedData = sessionStorage.getItem('temporaryGAD7Report');
+      if (storedData) {
+        // Case 2: User not logged in but data stored in session
+        const parsedData = JSON.parse(storedData);
+        setTemporaryData(parsedData);
+        if (parsedData.username) {
+          setUser({ username: parsedData.username, profilePicture: 'path_to_profile_picture.jpg' }); // Update with actual profile picture if available
+        }
+        prepareDataFromTemporary(parsedData);
+      } else {
+        // Fallback to sample data if no session data
+        setLatestTestScoresData(sampleTestScores);
+        setYogaSessionsData(prepareYogaSessionsData(sampleYogaSessions));
+        setYogaDonutData(prepareYogaDonutData(sampleYogaSessions));
       }
+    } else {
+      // Case 3: User logged in
+      fetchUserData();
     }
-  }, []);
+  }, [user]);
 
-  // Prepare Test Scores Data
+  // Function to fetch user data
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/fetch/reports', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`,
+        },
+        body: JSON.stringify({ username: user.username }),
+      });
 
-  const username = user ? user.username : null; 
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message || 'Failed to fetch report');
+      }
 
-  const storedResults = temporaryData?.testResults || []; 
+      const userData = await response.json();
+      prepareUserData(userData);
 
-  const latestTestScoresData = storedResults.length
-  ? storedResults.reduce((acc, result, index) => {
-      const existingEntry = acc.find(item => item.date === result.date);
-      
-      if (existingEntry) {
-        // If entry exists, keep only the latest GAD7 and PHQ9 scores
-        if (index > storedResults.findIndex(item => item.date === existingEntry.date)){
-        existingEntry.GAD7 = result.username === username ? Math.max(existingEntry.GAD7, result.gad7Score || 0) : existingEntry.GAD7;
-        existingEntry.PHQ9 = result.username === username ? Math.max(existingEntry.PHQ9, result.phq9Score || 0) : existingEntry.PHQ9;}
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      // Fallback to sample data if fetching fails
+      setLatestTestScoresData(sampleTestScores);
+      setYogaSessionsData(prepareYogaSessionsData(sampleYogaSessions));
+      setYogaDonutData(prepareYogaDonutData(sampleYogaSessions));
+    }
+  };
+
+  // Function to prepare user data
+  const prepareUserData = (userData) => {
+    const yogaSessions = userData.yogaSessions || sampleYogaSessions;
+    setYogaSessionsData(prepareYogaSessionsData(yogaSessions));
+    setYogaDonutData(prepareYogaDonutData(yogaSessions));
+
+    const username = user.username; // Using logged-in username
+    const storedResults = userData.latestTestScores || []; // Assuming the API returns this structure
+
+    console.log("hdgs",userData)
+
+    const latestTestScoresData = storedResults.length
+      ? storedResults.reduce((acc, result) => {
+        const existingEntry = acc.find(item => item.date === result.date);
+        if (existingEntry) {
+          existingEntry.GAD7 = Math.max(existingEntry.GAD7, result.gad7Score || 0);
+          existingEntry.PHQ9 = Math.max(existingEntry.PHQ9, result.phq9Score || 0);
+        } else {
+          acc.push({
+            date: result.date || 'N/A',
+            GAD7: result.GAD7 || 0,
+            PHQ9: result.PHQ9 || 0,
+          });
+        }
+        return acc;
+      }, [])
+      : sampleTestScores.map(score => ({
+        date: score.date,
+        GAD7: score.GAD7,
+        PHQ9: score.PHQ9,
+      }));
+
+    setLatestTestScoresData(latestTestScoresData);
+  };
+
+  // Function to prepare data from temporary data
+  const prepareDataFromTemporary = (parsedData) => {
+    const yogaSessions = parsedData.yogaSessions || sampleYogaSessions;
+    setYogaSessionsData(prepareYogaSessionsData(yogaSessions));
+    setYogaDonutData(prepareYogaDonutData(yogaSessions));
+
+    const username = parsedData.username; // Use username from temporary data
+    const storedResults = parsedData.testResults || []; // Assuming the temporary data contains test results
+
+    const latestTestScoresData = storedResults.length
+      ? storedResults.reduce((acc, result) => {
+        const existingEntry = acc.find(item => item.date === result.date);
+        if (existingEntry) {
+          existingEntry.GAD7 = Math.max(existingEntry.GAD7, result.gad7Score || 0);
+          existingEntry.PHQ9 = Math.max(existingEntry.PHQ9, result.phq9Score || 0);
+        } else {
+          acc.push({
+            date: result.date || 'N/A',
+            GAD7: result.gad7Score || 0,
+            PHQ9: result.phq9Score || 0,
+          });
+        }
+        return acc;
+      }, [])
+      : sampleTestScores.map(score => ({
+        date: score.date,
+        GAD7: score.GAD7,
+        PHQ9: score.PHQ9,
+      }));
+
+    setLatestTestScoresData(latestTestScoresData);
+  };
+
+  // Helper function to prepare yoga sessions data for AreaChart
+  const prepareYogaSessionsData = (yogaSessions) => {
+    return yogaSessions.reduce((acc, session) => {
+      const existingSession = acc.find(item => item.date === session.date);
+      if (existingSession) {
+        existingSession.totalDuration += session.duration; // Sum durations for the same date
+      } else {
+        acc.push({ date: session.date, totalDuration: session.duration });
+      }
+      return acc;
+    }, []);
+  };
+
+  // Helper function to prepare yoga sessions data for Donut Chart
+  const prepareYogaDonutData = (yogaSessions) => {
+    return yogaSessions.reduce((acc, session) => {
+      const existingSession = acc.find(item => item.date === session.date);
+      if (existingSession) {
+        existingSession.data.push({ name: session.yogaType, value: session.duration });
+        existingSession.totalDuration += session.duration;
       } else {
         acc.push({
-          date: result.date || 'N/A',
-          GAD7: result.username === username ? result.gad7Score || 0 : 0, 
-          PHQ9: result.username === username ? result.phq9Score || 0 : 0,
+          date: session.date,
+          data: [{ name: session.yogaType, value: session.duration }],
+          totalDuration: session.duration,
         });
       }
-
-      return acc;
-    }, [])
-  : sampleTestScores.map(score => ({
-      date: score.date,
-      GAD7: score.GAD7,
-      PHQ9: score.PHQ9,
-    }));
-
-
-  // Data for Yoga Sessions Line Chart (Total Duration)
-  const yogaSessionsData = temporaryData?.yogaSessions?.length > 0
-    ? temporaryData.yogaSessions.reduce((acc, session) => {
-      const existingSession = acc.find(item => item.date === session.date);
-      if (existingSession) {
-        existingSession.totalDuration += session.duration; // Sum durations for the same date
-      } else {
-        acc.push({ date: session.date, totalDuration: session.duration });
-      }
-      return acc;
-    }, [])
-    : sampleYogaSessions.reduce((acc, session) => {
-      const existingSession = acc.find(item => item.date === session.date);
-      if (existingSession) {
-        existingSession.totalDuration += session.duration; // Sum durations for the same date
-      } else {
-        acc.push({ date: session.date, totalDuration: session.duration });
-      }
       return acc;
     }, []);
+  };
 
-  // Data for Donut Chart
-  const yogaDonutData = temporaryData?.yogaSessions?.length > 0
-    ? temporaryData.yogaSessions.reduce((acc, session) => {
-      const existingSession = acc.find(item => item.date === session.date);
-      if (existingSession) {
-        existingSession.data.push({ name: session.yogaType, value: session.duration });
-        existingSession.totalDuration += session.duration;
-      } else {
-        acc.push({ date: session.date, data: [{ name: session.yogaType, value: session.duration }], totalDuration: session.duration });
-      }
-      return acc;
-    }, [])
-    : sampleYogaSessions.reduce((acc, session) => {
-      const existingSession = acc.find(item => item.date === session.date);
-      if (existingSession) {
-        existingSession.data.push({ name: session.yogaType, value: session.duration });
-        existingSession.totalDuration += session.duration;
-      } else {
-        acc.push({ date: session.date, data: [{ name: session.yogaType, value: session.duration }], totalDuration: session.duration });
-      }
-      return acc;
-    }, []);
-
-    
+  const yogaColorMap = {
+    'Hatha Yoga': '#FF4B5C',
+    'Vinyasa Yoga': '#6C63FF',
+    'Ashtanga Yoga': '#FFCC00',
+    'XYZ Yoga': '#FFC0CB',
+    'CTY Yoga': '#00C49F',
+    'Tree Yoga': '#FFBB28',
+  };
 
   return (
     <div className="start-profile">
       <div className="profile-container">
         <div className="profile-left">
-          <img src={user.profilePicture} alt="Profile" className="profile-picture" />
-          <h2>{user.username}</h2>
+          {user ? (
+            <>
+              <img src={user.profilePicture} alt="Profile" className="profile-picture" />
+              <h2>{user.username}</h2>
+            </>
+          ) : (
+            <>
+            <img src={userTest.profilePicture} alt="Profile" className="profile-picture" />
+            <h2>{userTest.username}</h2>
+          </>
+          )}
         </div>
 
         <div className="profile-right">
@@ -150,11 +230,11 @@ const Profile = () => {
                 <BarChart data={latestTestScoresData}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="date" />
-                  <YAxis domain={[0, 21]} ticks={[0, 5, 10, 15, 20, 25]} />
+                  <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="GAD7" fill="#4A90E2" name="GAD-7" barSize={30} />
-                  <Bar dataKey="PHQ9" fill="#D0021B" name="PHQ-9" barSize={30} />
+                  <Bar dataKey="GAD7" fill="#8884d8" name="GAD-7" barSize={30}/>
+                  <Bar dataKey="PHQ9" fill="#82ca9d" name="PHQ-9" barSize={30}/>
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -190,6 +270,7 @@ const Profile = () => {
               </ResponsiveContainer>
             </div>
           </div>
+       
 
           <div className="chart-container">
             <h4>Yoga Session Distribution</h4>

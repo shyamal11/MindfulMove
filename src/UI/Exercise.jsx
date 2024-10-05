@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import TestPopup from '../component/PopUp'; // Assuming this is your popup component
 import '../component/popup.css'; // Assuming you have the necessary styles for the popup
+import './exercise.css'
+import lunges from "../assets/img/lunges.png"
+import yoga from "../assets/img/yoga-pose.png"
+import ex from "../assets/img/extended.png"
 
 const Exercise = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to control popup visibility
 
-  const lunges = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/lunges.png";
-  const yoga = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/yoga-pose.png";
-  const ex = "https://shyamal11.github.io/backend-innerBalanceHub/assets/img/extended.png";
+  
+
 
   const handleClick = () => {
     setIsPopupOpen(true); // Open the popup when "Start" is clicked
@@ -50,10 +53,17 @@ const Exercise = () => {
             </div>
           </div>
           <div className="exButton">
-            <button onClick={handleClick} className="btn btn-primary fit-width">
-              Start
-            </button>
-          </div>
+          <div className="start-line"></div> 
+    <div className="mental-well-being-message">
+        Ready to nurture your mental well-being?
+    </div>
+    <button onClick={handleClick} className="btn btn-start">
+    Begin Your Assessment 
+    </button>
+</div>
+
+
+
         </div>
       </div>
 

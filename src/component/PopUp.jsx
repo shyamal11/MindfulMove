@@ -1,20 +1,20 @@
 // TestPopup.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
-import './popup.css'; // Import the CSS for the popup
+import { useNavigate } from 'react-router-dom';
+import './popup.css';
 import { ReactComponent as CloseIcon } from '../assets/img/close-icon.svg';
 
 const TestPopup = ({ closePopup }) => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleGAD7Click = () => {
-    closePopup(); // Close the popup
-    navigate('/gad7'); // Redirect to the GAD-7 and PHQ-9 Questionnaire page
+    closePopup();
+    navigate('/gad7');
   };
 
   const handlePHQ9Click = () => {
-    closePopup(); // Close the popup
-    navigate('/phq9'); // Redirect to the PHQ-9 and GAD-7 Questionnaire page
+    closePopup();
+    navigate('/phq9');
   };
 
   return (
@@ -23,17 +23,18 @@ const TestPopup = ({ closePopup }) => {
         <div className="close-icon" onClick={closePopup}>
           <CloseIcon />
         </div>
-        <h2 className="popup-title">Select a Test</h2>
+        <h2 className="popup-title">Choose Your Assessment</h2>
+        <p className="popup-subtitle">Taking the first step towards understanding your mental health is important!</p>
         <div className="test-options">
           <div className="test-card" onClick={handleGAD7Click}>
             <div className="card-icon">🧠</div>
             <h4 className="card-title">GAD-7</h4>
-            <p className="card-description">Take the GAD-7 for Anxiety Assessment!</p>
+            <p className="card-description">Assess your anxiety severity</p>
           </div>
           <div className="test-card" onClick={handlePHQ9Click}>
             <div className="card-icon">😞</div>
             <h4 className="card-title">PHQ-9</h4>
-            <p className="card-description">Take the PHQ-9 for Depression Assessment!</p>
+            <p className="card-description">Evaluate your depression severity</p>
           </div>
         </div>
       </div>
