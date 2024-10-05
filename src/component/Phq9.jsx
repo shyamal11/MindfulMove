@@ -1,13 +1,15 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
+import {  useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContextProvider';
 import AuthModal from './modal';
 import './gad.css';
 import HalfCircleMeter from './HalfCircleMeter';
 import SuggestedYoga from './SuggestYoga'
 import Swal from "sweetalert2";
+
 const GAD7Questionnaire = () => {
 
-
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to the top on mount
   }, []); // Empty dependency array ensures this runs only once on mount
@@ -108,6 +110,17 @@ const GAD7Questionnaire = () => {
     } else {
       return 'Minimal depression';
     }
+  };
+
+  const handleBackToTest = () => {
+    navigate('/exercise');
+    setShowReport(false);
+    setShowExercises(false); // Hide the suggested exercises section when closing the report
+  };
+
+  const handleViewReport = () => {
+    navigate('/profile');
+   
   };
 
   const handleSaveReport = async () => {
@@ -289,21 +302,12 @@ const GAD7Questionnaire = () => {
                 </ul>
                 <div className="report-actions">
                   {isReportSaved ? (
-                    <button type="button" onClick={() => {
-                      // Logic to view the saved report
-                      // You can redirect to a report viewing page or display it in a modal
-
-                    }}>
-                      View Your Report
-                    </button>
+                     <button type="button" onClick={handleViewReport}>View Report</button>
                   ) : (
                     <button type="button" onClick={handleSaveReport}>Save Report</button>
                   )}
-                  <button type="button" onClick={() => {
-                    setShowReport(false);
-                    setShowExercises(false); // Hide the suggested exercises section when closing the report
-                  }}>
-                    Close
+                   <button type="button" onClick={handleBackToTest}>
+                    Retake Assesment
                   </button>
                 </div>
 

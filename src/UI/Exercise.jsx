@@ -1,24 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import TestPopup from '../component/PopUp'; // Assuming this is your popup component
 import '../component/popup.css'; // Assuming you have the necessary styles for the popup
-import './exercise.css'
-import lunges from "../assets/img/lunges.png"
-import yoga from "../assets/img/yoga-pose.png"
-import ex from "../assets/img/extended.png"
+import './exercise.css';
+import lunges from "../assets/img/lunges.png";
+import yoga from "../assets/img/yoga-pose.png";
+import ex from "../assets/img/extended.png";
 
 const Exercise = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to control popup visibility
+  const location = useLocation(); // Hook to get the current location
+  const navigate = useNavigate(); // Hook to access the navigate function
 
-
-
-
+  // Function to open the popup
   const handleClick = () => {
     setIsPopupOpen(true); // Open the popup when "Start" is clicked
   };
 
+  // Function to close the popup
   const closePopup = () => {
     setIsPopupOpen(false); // Close the popup when the user clicks "Close" in the popup
+    navigate('/'); // Redirect after closing
   };
+
+  // Use effect to open popup automatically when the component mounts
+  useEffect(() => {
+    if (location.pathname === '/exercise') {
+      setIsPopupOpen(true); // Open the popup if the current path is /exercise
+    }
+  }, [location.pathname]); // Dependency on the pathname
 
   return (
     <section>
@@ -55,14 +65,13 @@ const Exercise = () => {
             </a>
           </div>
 
-
           <div className="exButton">
             <div className="start-line"></div>
             <div className="mental-well-being-message">
               Ready to nurture your mental well-being?
             </div>
             <button onClick={handleClick} className="btn btn-start">
-              Begin  Assessment
+              Begin Assessment
             </button>
           </div>
 
