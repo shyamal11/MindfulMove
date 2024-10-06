@@ -124,41 +124,55 @@
 
 /* Button Styles */
 .btn-start {
-  padding: 10px 20px; /* Padding for the button */
-  font-size: 1rem; /* Font size */
-  color: white; /* Text color */
-  background-color: transparent; /* Make the button background transparent */
-  border: 2px solid #f0ad4e; /* Default border (transparent) */
-  border-radius: 20px; /* Rounded corners */
-  cursor: pointer; /* Pointer on hover */
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Smooth transition for color changes */
-  position: relative; /* Position relative for pseudo-elements */
-  overflow: hidden; /* To hide any overflowing border */
-  animation: borderAnimation 3s infinite alternate;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: transparent;
+  border: 2px solid transparent; /* Button border */
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /* Hide overflow for the beam */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3), 
+              0 6px 20px rgba(76, 175, 80, 0.5); /* Soft shadow effect */
+  transition: transform 0.2s; /* Smooth transition for scaling */
 
   
 }
 
+.btn-start::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px; /* Match border radius */
+  border: 2px transparent ;
+  background: linear-gradient(90deg, rgba(0, 255, 128, 0.5), rgba(0, 128, 255, 0.1), rgba(0, 255, 128, 0.5));
+
+
+  background-size: 200% 100%; /* Double width for the beam effect */
+  z-index: -1;
+  animation: beam 3s linear infinite;
+}
 
 
 
-@keyframes borderAnimation {
+@keyframes beam {
   0% {
-      border-color: #f0ad4e; /* Start color */
-  }
-  50% {
-      border-color: #FF0080; /* Middle color */
+    background-position: 200% 0%;
   }
   100% {
-      border-color: #00BFFF; /* End color */
+    background-position: -200% 0%;
   }
 }
 
 .btn-start:hover {
-  background-color: #e65100; /* Darker shade on hover */
-  transform: translateY(-2px); /* Lift effect on hover */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
-  border: 2px solid #e65100;
+  transform: scale(1.05); 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 

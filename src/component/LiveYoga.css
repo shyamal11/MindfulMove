@@ -13,13 +13,15 @@
   
 }
 
+
+
 /* Title styling */
 .pose-title {
   margin-bottom: 30px; /* Space below the heading */
   color: #00796b; /* Heading color */
   text-align: center; /* Center the text */
   width: 100%; /* Full width for centering */
-  font-size: 2rem; /* Larger font size for emphasis */
+  font-size: 1rem; /* Larger font size for emphasis */
   font-weight: bold; /* Bold for prominence */
   text-transform: uppercase; /* Uppercase for a strong look */
   letter-spacing: 1px; /* Letter spacing for elegance */
@@ -39,13 +41,13 @@
   border: 2px solid rgba(255, 255, 255, 0.9); /* Slight transparency for elegance */
   border-radius: 15px; /* Match rounded corners */
   overflow: hidden;
-  width: 500px; /* Fixed width for camera feed */
-  height: 400px; /* Fixed height to match aspect ratio */
+  width: 450px; /* Fixed width for camera feed */
+  height: 350px; /* Fixed height to match aspect ratio */
   margin-right: 60px; /* Reduced margin for compactness */
-  margin-left: -80px;
+  margin-left: -60px;
   background-color: rgba(255, 255, 255, 0.9); /* Light background */
   padding: 10px; /* Reduced padding for a cleaner look */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Softer shadow */
 }
 
 /* Webcam styling */
@@ -69,45 +71,67 @@
   pointer-events: none; /* Canvas doesn't interfere with interactions */
 }
 
-/* Video container styling */
-.video-container video {
+.video-container {
   width: 100%; /* Ensure video fits the container */
-  height: auto; /* Maintain aspect ratio */
+  height: 230px; /* Maintain aspect ratio */
   border-radius: 10px; /* Rounded corners for video */
   margin-left: 20px; 
+
+
+}
+
+/* Video container styling */
+.video-container video {
+  width: 420px; /* Ensure video fits the container */
+  height: 230px; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners for video */
+  margin-left: 20px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 
 
 /* Instruction box styling */
 .instruction-box {
-  margin-top: 30px; /* Space above the instruction box */
-  padding: 20px; /* Increased padding for comfort */
+  margin-top: 10px; /* Space above the instruction box */
+  padding: 5px; /* Increased padding for comfort */
+  /* Increased padding for comfort */
   background-color: #f8f8f8; /* Light background for instructions */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Softer shadow */
   height: auto; /* Auto height for flexibility */
-  width: 100%; /* Fixed width */
-  margin-left: 20px; 
+  width: 420px; /* Fixed width */
+  margin-left: 40px; 
+  height: 110px;
+  
 }
 
 /* Heading for instructions */
 .instruction-box h2 {
-  font-size: 1.8rem; /* Slightly larger heading size */
+  font-size: 1rem; /* Slightly larger heading size */
   color: #00796b; /* Color for instruction headings */
-  margin-bottom: 10px; /* Space below heading */
+  /* Space below heading */
+  text-align: left;
+  padding-left: 5px;
 }
 
 /* Paragraph text in instruction box */
 .instruction-box p {
-  font-size: 1rem; /* Normal text size for instructions */
+  padding-left: 5px;
+  font-size: .9rem; /* Normal text size for instructions */
   color: #333; /* Dark color for readability */
   line-height: 1.5; /* Increased line height for better readability */
 }
 
 
+
+.button-container-live-yoga {
+  left:400px;
+  position: absolute;
+}
+
 /* Button styling */
-.secondary-btn {
+.secondary-btn-live-yoga {
   background-color: #00796b; /* Button background color */
   color: white; /* Text color */
   border: none; /* Remove default border */
@@ -115,14 +139,56 @@
   padding: 10px 20px; /* Padding for size */
   font-size: 1rem; /* Font size */
   cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
-  margin-top: 40px; /* Margin around buttons for spacing */
+  position: relative; /* Enables positioning for the beam */
+  overflow: hidden; /* Prevents beam overflow */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  z-index: 10; /* Ensures the button is above other elements */
+  
+  
 }
 
-.secondary-btn:hover {
+/* Beam effect - initially hidden */
+.secondary-btn-live-yoga::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px; /* Ensure the beam follows the button's rounded corners */
+  border: 2px solid transparent; /* Initially transparent */
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), transparent); /* Gradient for the beam */
+  transform: scale(1.1); /* Slightly larger than the button to show the beam better */
+  z-index: 1;
+  pointer-events: none; /* Prevent the beam from interfering with the button click */
+  animation: beamAnimation 2s linear infinite; /* Apply the beam animation */
+}
+
+/* Hover effect */
+.secondary-btn-live-yoga:hover {
   background-color: #005b4d; /* Darker shade on hover */
   transform: scale(1.05); /* Slightly enlarge button on hover */
 }
+
+/* Keyframes for beam animation */
+@keyframes beamAnimation {
+  0% {
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.5);
+  }
+  25% {
+    border-color: rgba(255, 255, 255, 0.5) transparent transparent transparent;
+  }
+  50% {
+    border-color: transparent rgba(255, 255, 255, 0.5) transparent transparent;
+  }
+  75% {
+    border-color: transparent transparent rgba(255, 255, 255, 0.5) transparent;
+  }
+  100% {
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.5);
+  }
+}
+
 
 /* Performance container styling */
 .performance-container {

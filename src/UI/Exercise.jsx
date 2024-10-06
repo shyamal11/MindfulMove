@@ -3,9 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TestPopup from '../component/PopUp'; // Assuming this is your popup component
 import '../component/popup.css'; // Assuming you have the necessary styles for the popup
 import './exercise.css';
-import lunges from "../assets/img/lunges.png";
-import yoga from "../assets/img/yoga-pose.png";
-import ex from "../assets/img/extended.png";
+import lunges from "../assets/img/evaluate-icon-for-your-website-mobile-presentation-and-logo-design-free-vector.jpg";
+import yoga from "../assets/img/attachment_121893514.png";
+import ex from "../assets/img/1707478560595-removebg-preview.png";
+
 
 const Exercise = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // State to control popup visibility
@@ -73,6 +74,9 @@ const Exercise = () => {
             <button onClick={handleClick} className="btn btn-start">
               Begin Assessment
             </button>
+
+    
+            
           </div>
 
         </div>

@@ -4,6 +4,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import './LiveYoga.css';
+import poseData from '../UI/Instrctions/Instructions'
+
+
+
 
 import { POINTS, keypointConnections } from '../utils/data';
 import { drawPoint, drawSegment } from '../utils/helper';
@@ -31,7 +35,36 @@ const Yoga = () => {
   const [startingTime, setStartingTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
 
+  const [currentInstructionIndex, setCurrentInstructionIndex] = useState(0);
+  const [currentInstruction, setCurrentInstruction] = useState(
+    "Instructions will display for each step for 3 seconds.");
 
+  useEffect(() => {
+    if (isStartPose) {
+      const instructions = poseData[currentPose]?.instructions || [];
+
+      // If there are instructions, clear the default message
+      if (instructions.length > 0) {
+        setCurrentInstruction(""); // Clear default message before showing instructions
+        setCurrentInstruction(instructions[0]); // Set the first instruction
+        const instructionInterval = setInterval(() => {
+          setCurrentInstructionIndex(prevIndex => {
+            const nextIndex = prevIndex + 1;
+            if (nextIndex < instructions.length) {
+              setCurrentInstruction(instructions[nextIndex]);
+              return nextIndex;
+            } else {
+              clearInterval(instructionInterval); // Stop when all instructions are shown
+              return prevIndex;
+            }
+          });
+        }, 3000); // Change instruction every 3 seconds
+
+        // Clean up the interval on component unmount
+        return () => clearInterval(instructionInterval);
+      }
+    }
+  }, [isStartPose, currentPose]);
 
   const CLASS_NO = {
     Chair: 0,
@@ -204,6 +237,7 @@ const Yoga = () => {
 
 
 
+
   function startYoga() {
     setIsStartPose(true);
     runMovenet();
@@ -212,44 +246,72 @@ const Yoga = () => {
   function stopPose() {
     setIsStartPose(false);
     clearInterval(interval);
+    setCurrentInstructionIndex(0); // Reset instruction index when stopping the pose
+    setCurrentInstruction("Instructions will display for each step for 3 seconds."); // Clear the instruction
+
   }
+
+
+
 
   return (
     <div className="live-yoga-container">
       <h1 className="pose-title">Pose: {currentPose}</h1>
-      <div className="yoga-session">
-        <div className="camera-feed-container">
-          <Webcam className="webcam" ref={webcamRef} />
-          <canvas
-            ref={canvasRef}
-            id="my-canvas"
-            width="600"   // Internal canvas resolution should match the container's size
-            height="480"  // Set height as per your container's size
-          ></canvas>
-        </div>
-        <div className="video-box">
-          <div className="video-container">
-            <video controls>
-              <source src="path_to_your_video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+      <div>
+        <div className="yoga-session">
+          <div className="camera-feed-container">
+            <Webcam className="webcam" ref={webcamRef} />
+            <canvas
+              ref={canvasRef}
+              id="my-canvas"
+              width="600"
+              height="480"
+            ></canvas>
+
+            {/* Start/Stop Buttons */}
+
+
+
           </div>
-          <div className="instruction-box">
-            <h2>Instructions</h2>
-            <p>Here you can include detailed instructions for the pose.</p>
+
+          <div className="video-box">
+            <div className="video-container">
+              <video controls>
+                <source src={poseData[currentPose]?.video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="instruction-box">
+              <h2>Instructions</h2>
+              <p>{currentInstruction}</p>
+            </div>
+            <div className="performance-container">
+              <div className="button-container-live-yoga">
+               
+                    {isStartPose ? (
+                  <button onClick={stopPose} className=" secondary-btn-live-yoga">Stop Pose</button>
+                ) : (
+                  <button onClick={startYoga} className="secondary-btn-live-yoga">Start Pose</button>
+
+                )}
+
+             
+              
+              </div>
+
+              <div className="pose-performance">
+                <h4>Pose Time: {poseTime} s</h4>
+              </div>
+              <div className="pose-performance">
+                <h4>Best: {bestPerform} s</h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      {isStartPose ? (
-        <button onClick={stopPose} className="secondary-btn">Stop Pose</button>
-      ) : (
-        <button onClick={startYoga} className="secondary-btn">Start Pose</button>
-      )}
-      <div className="performance-container">
-        <div className="pose-performance"><h4>Pose Time: {poseTime} s</h4></div>
-        <div className="pose-performance"><h4>Best: {bestPerform} s</h4></div>
-      </div>
+
     </div>
+
   );
 };
 

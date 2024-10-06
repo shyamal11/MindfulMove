@@ -9,6 +9,7 @@ import Bot from "./component/bot"; // Ensure the path is correct
 import Spinner from "./component/Spinner"; // Import the spinner component
 
 
+
 function App() {
   const [isLoading, setIsLoading] = useState(true); // Track loading state
   const [showBot, setShowBot] = useState(false); // Track bot visibility
@@ -110,7 +111,7 @@ function App() {
               </div>
             )}
           </div>
-
+       
           <Footer />
 
         </>
