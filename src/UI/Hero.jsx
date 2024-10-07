@@ -1,15 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 import heroImg from '../assets/img/model1-removebg-preview.png'; // Correctly importing the image
 import './Hero.css'
-
-
-
-import { AuthContext } from '../component/AuthContextProvider'; // Adjust the path to your AuthContext
 import AuthModal from '../component/modal';
 
 const Hero = () => {
 
-  const { user } = useContext(AuthContext);
+  
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [animateZoom, setAnimateZoom] = useState(false);
   

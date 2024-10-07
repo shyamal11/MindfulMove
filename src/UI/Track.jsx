@@ -15,7 +15,7 @@ const Track = () => {
   // const [data, setData] = useState([]);
   const [fitData, setFitData] = useState([]);
   const [btn,setBtn] = useState(false);
-  const [loading,setLoading]=useState(false);
+  
 
   const { filter } = useContext(AuthContext);
 
@@ -28,6 +28,7 @@ const Track = () => {
   // useEffect(()=>{
   //   fetchAndRender();
   // },[filter]);
+  /* eslint-disable-next-line no-unused-vars */
   const getFitnessData = async () => {
     let res = await fetch(
       `https://healthandfitness.onrender.com/data/${filter[0].id}`
@@ -57,7 +58,7 @@ const Track = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(filter);
-    setLoading(true);
+    
     // alert("It may take some time to show data on Dashboard, so please be patient.");
 
     let obj = {

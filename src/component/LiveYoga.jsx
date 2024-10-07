@@ -34,7 +34,7 @@ const Yoga = () => {
   const canvasRef = useRef(null);
   const [startingTime, setStartingTime] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-
+/* eslint-disable-next-line no-unused-vars */
   const [currentInstructionIndex, setCurrentInstructionIndex] = useState(0);
   const [currentInstruction, setCurrentInstruction] = useState(
     "Instructions will display for each step for 3 seconds.");

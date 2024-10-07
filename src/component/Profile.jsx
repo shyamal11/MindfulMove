@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from './AuthContextProvider';
 import {
@@ -294,10 +296,7 @@ const Profile = () => {
                           <Cell
                             key={`cell-${idx}`}
                             fill={
-                              entry.name === 'Hatha Yoga' ? '#FF4B5C' :
-                                entry.name === 'Vinyasa Yoga' ? '#6C63FF' :
-                                  entry.name === 'Ashtanga Yoga' ? '#FFCC00' :
-                                    '#FFC0CB' // Default color for other yoga types
+                             yogaColorMap[entry.name] || '#FFC0CB'
                             }
                           />
                         ))}
