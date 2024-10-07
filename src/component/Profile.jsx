@@ -71,7 +71,7 @@ const Profile = () => {
   // Function to fetch user data
   const fetchUserData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/fetch/reports', {
+      const response = await fetch(`${process.env.REACT_APP_FETCH_REPORT_URL}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
