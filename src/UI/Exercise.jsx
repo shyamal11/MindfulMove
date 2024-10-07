@@ -41,29 +41,29 @@ const Exercise = () => {
         </div>
         <div className="exButtonm">
           <div className="exercise__wrapper">
-            <a href="/assessment" className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
+            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
               <div className="exercise__content">
                 <span className="exercise__icon"><img src={lunges} alt="err" /></span>
                 <h4>Assessment</h4>
                 <p>Take quick and insightful GAD-7 and PHQ-9 assessments to measure your anxiety and depression levels</p>
               </div>
-            </a>
+            </div>
 
-            <a href="/yoga" className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
+            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
               <div className="exercise__content">
                 <span className="exercise__icon"><img src={yoga} alt="err" /></span>
                 <h4>Personalized Activites</h4>
                 <p>Receive exercise and wellness tips tailored to your individual needs and progress</p>
               </div>
-            </a>
+            </div>
 
-            <a href="/ai-instructor" className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
+            <div className="exercise__item" data-aos-duration="1500" data-aos="zoom-in">
               <div className="exercise__content">
                 <span className="exercise__icon"><img src={ex} alt="err" /></span>
                 <h4> Fitness Coach</h4>
                 <p>Real-time guidance with AI that detects and corrects your posture during exercises</p>
               </div>
-            </a>
+            </div>
           </div>
 
           <div className="exButton">

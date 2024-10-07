@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import heroImg from '../assets/img/model1-removebg-preview.png'; // Correctly importing the image
+import './Hero.css'
 
 
 
@@ -10,15 +11,18 @@ const Hero = () => {
 
   const { user } = useContext(AuthContext);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [animateZoom, setAnimateZoom] = useState(false);
+  
+
+  useEffect(() => {
+    // Trigger the zoom-in animation effect after the component mounts
+    setAnimateZoom(true);
+  }, []);
 
   const openPHQ9Questionnaire = () => {
-    if (user) {
-      const url = new URL('/questionnaires', window.location.origin);
-      url.searchParams.set('username', user.username);
-      window.open(url.toString(), '_blank');
-    } else {
-      window.open('/questionnaires', '_blank');
-    }
+
+    window.open('/all-yoga', '_blank');
+
   };
 
   return (
@@ -27,12 +31,12 @@ const Hero = () => {
         <div className="hero__wrapper">
           <div className="hero__content">
             <h2 className="section__title" data-aos-duration="1000" data-aos="fade-up">
-            Discover a Healthier You <span className="highlights">Assess, Act, Achieve</span> 
+              Discover a Healthier You <span className="highlights">Assess, Act, Achieve</span>
             </h2>
             <p data-aos-duration="1100" data-aos="fade-up" data-aos-delay="100">
-            Elevate your mental well-being with our all-in-one platform! 
+              Elevate your mental well-being with our all-in-one platform!
               <br /> Get tailored assessments for anxiety and depression, discover personalized <br /> strategies for growth
-              and harness the power of AI-driven fitness coaching. <br /> <br /> 
+              and harness the power of AI-driven fitness coaching. <br /> <br />
               Your journey to optimal health starts here!
             </p>
 
@@ -46,17 +50,12 @@ const Hero = () => {
                 {' '}
                 Get Started
               </button>
-              <button className="watch_btn">
-                <span>
-                  <i className="ri-play-fill"></i>
-                </span>
-                Watch Video
-              </button>
+             
             </div>
           </div>
 
           <div className="hero__img">
-            <div className="hero__img-wrapper">
+            <div className={`hero__img-wrapper ${animateZoom ? 'animate-zoom-in' : ''}`}>
               <div className="box-01">
                 <div className="box-02">
                   <div className="box-03">
@@ -66,10 +65,6 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
-
-          
-
-              
             </div>
           </div>
         </div>

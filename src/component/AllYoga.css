@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 .allyoga-page {
-    background: linear-gradient(to bottom, #f0f7f4, #ffffff);
+    background: linear-gradient(to bottom, #fefefe, #ffffff);
     min-height: 100vh;
 }
 
@@ -12,22 +12,22 @@
 }
 
 .allyoga-title {
-    text-align: center;
-    color: #009688;
-    font-size: 2em;
-    margin-bottom: 30px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+    position: relative;
+ margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 /* Search bar styling */
 .allyoga-search-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .allyoga-search-bar {
+    margin-top: 20px;
     width: 80%;
     max-width: 500px;
     padding: 10px;
@@ -146,3 +146,58 @@
         transform: translateY(0);
     }
 }
+
+
+.allyoga-intro {
+    position: relative;
+    z-index: 2; /* Place text on top of the overlay and video */
+    color: #ffffff; /* Ensure text is visible */
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .video-background {
+    position: absolute; /* Positioning for full cover */
+    top: 50%;
+   
+    min-width: 100%; /* Cover the entire background */
+    min-height: 100%;
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Maintain aspect ratio */
+    z-index: 0; /* Behind overlay and text */
+    transform: translate(-50%, -50%); /* Center the video */
+    opacity: 0.5;
+   
+}
+
+
+
+  .allyoga-hero {
+    position: relative;
+    overflow: hidden;
+    color: #ffffff; /* Text color for contrast */
+    text-align: center;
+    padding: 50px 20px; /* Space around the text */
+    border-radius: 15px;
+    height: 250px; /* Set fixed height */
+    width: 1100px;
+    background-color: black; /* Optional background color */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-top: 50px;
+  }
+
+  .allyoga-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(16, 5, 5, 0.9); /* Dark overlay for text contrast */
+    border-radius: 15px;
+  }
+  

@@ -59,5 +59,6 @@ ul{
 .section__title{
   color: var(--heading-color);
   font-weight: 700;
+  text-align: left;
   
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import './AllYoga.css'; // Import the CSS file for styling
 import treePose from '../utils/pose_images/tree.png';
@@ -8,6 +8,7 @@ import trianglePose from '../utils/pose_images/triangle.jpg';
 import dogPose from '../utils/pose_images/dog.png';
 import chairPose from '../utils/pose_images/chair.png';
 import ShoulderstandPose from '../utils/pose_images/Shoulderstand.png';
+import video from '../assets/img/testvideo.mp4'
 
 const poseData = [
   { name: 'Tree', img: treePose, benefit: 'Improves Focus and Concentration' },
@@ -17,7 +18,7 @@ const poseData = [
   { name: 'Downward Dog', img: dogPose, benefit: 'Relaxes & reduces stress' },
   { name: 'chair', img: chairPose, benefit: 'Builds strength & stability.' },
   { name: 'Shoulder Stand ', img: ShoulderstandPose, benefit: 'Enhanced Emotional Regulation' }
-  
+
 ];
 
 const AllYogaPage = () => { // Changed component name to AllYogaPage
@@ -42,13 +43,22 @@ const AllYogaPage = () => { // Changed component name to AllYogaPage
 
   return (
     <div className="allyoga-page">
-      <div className="allyoga-title-container">
-        <h1 className="allyoga-title">Your Yoga Title</h1>
+      <div className='allyoga-title'>
+      <div className="allyoga-hero">
+        <video autoPlay muted loop className="video-background">
+          <source src= {video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      <div className='allyoga-intro'>
+        <h1>Embark on Your Wellness Journey</h1>
+        <p>Tap on any pose below to be led through a tailored workout session by our virtual AI instructor!!</p>
+      </div>
+      </div>
       </div>
       <div className="allyoga-search-container">
         <input
           type="text"
-          placeholder="  Search yoga poses..."
+          placeholder="Find an exercise..."
           className="allyoga-search-bar"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -68,6 +78,8 @@ const AllYogaPage = () => { // Changed component name to AllYogaPage
         ))}
       </div>
     </div>
+
+
   );
 };
 
