@@ -1,0 +1,122 @@
+.auth-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 360px;
+    max-width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000; /* Ensure the modal appears on top */
+    height: 450px;
+  }
+  
+  
+  .auth-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 999; /* Lower than modal but above other content */
+  }
+  
+  
+  .auth-modal h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .modal-h4{
+    margin-bottom: 25px;
+    text-align: center;
+    color: grey ;
+    font-size: 20px;
+  }
+  
+  .auth-modal form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .auth-modal input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .auth-modal button {
+    padding: 10px;
+    background: #164B60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+  
+    &:hover {
+      background: #245366;
+    }
+  }
+  
+  .auth-modal .toggle-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1rem;
+  
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+
+  .modal-image {
+    width: 60%;
+    height: auto;
+    max-height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 40px;
+  }
+  
+
+  .inputdata{
+    margin-bottom: 40px;
+   
+  }
+
+  .inputdata input {
+    width: 100%; /* Set the desired width */
+    max-width: 400px; /* Optional: restrict the maximum width */
+    padding: 10px; /* Optional: adjust padding for better UI */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+  }
+
+  .toggle-button-wrapper {
+    display: flex; /* Aligns children in a row (horizontal layout) */
+    justify-content: center; /* Centers the button horizontally */
+    margin: 20px; /* Optional: add margin for spacing */
+  }
+  
+  .toggle-button {
+    border: 2px solid blue; /* Change 'blue' to your desired border color */
+    background-color: transparent; /* Keeps the background transparent */
+    color: black; /* Change text color as needed */
+    padding: 10px 20px; /* Adjust padding for size */
+    cursor: pointer; /* Change the cursor on hover */
+    font-size: 16px; /* Adjust font size if needed */
+    border-radius: 5px; /* Optional: add border radius */
+  }

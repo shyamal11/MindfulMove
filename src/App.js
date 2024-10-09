@@ -27,7 +27,7 @@ function App() {
         'pricing.css',
        
         
-        'modal.css',
+        
         'start.css',
         'track.css'
       ];

@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { AuthContext } from './AuthContextProvider';
-
+import modalImg from '../assets/img/modalImg.png';
+import './modal.css';
 
 Modal.setAppElement('#root');
 
@@ -10,6 +11,20 @@ const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative; /* To position the close button absolutely */
+`;
+
+const CloseDiv = styled.div`
+   position: absolute;
+  top: -20px;
+  right: -10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  font-size: 1.5rem;
+
+  &:hover {
+      transform: rotate(90deg);
+  }
 `;
 
 const Form = styled.form`
@@ -66,7 +81,6 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
- 
 
   // Reset form fields and error message when modal opens or switches between login/register
   useEffect(() => {
@@ -101,7 +115,7 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
       await register(username, password);
       // Close the modal on successful registration
       onRequestClose();
-    }catch (error) {
+    } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         if (error.response.status === 400) {
@@ -116,7 +130,7 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
         setError('No response from server. Please try again later.');
       } else {
         // Something else happened in making the request that triggered an error
-        setError( error.message);
+        setError(error.message);
       }
     }
   };
@@ -137,22 +151,28 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
       overlayClassName="auth-modal-overlay"
     >
       <ModalWrapper>
-        <h2>{isLogin ? 'Login' : 'Register'}</h2>
+        <CloseDiv onClick={onRequestClose}>&times;</CloseDiv>
+        <img src={modalImg} alt="Modal Image" className="modal-image" />
+        <h4 className="modal-h4">
+          {isLogin ? 'Login' : 'Register'}
+        </h4>
         <Form onSubmit={isLogin ? handleLogin : handleRegister}>
-          <Input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="inputdata">
+            <Input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
           <Button type="submit">{isLogin ? 'Login' : 'Register'}</Button>
         </Form>
         {error && <ErrorMessage>{error}</ErrorMessage>}

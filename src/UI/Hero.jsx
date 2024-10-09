@@ -44,7 +44,7 @@ const Hero = () => {
             >
               <button className="register__btn" onClick={openPHQ9Questionnaire}>
                 {' '}
-                Get Started
+                See How it Works
               </button>
              
             </div>

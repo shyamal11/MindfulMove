@@ -97,8 +97,8 @@ const Bot = ({ isOpen, toggleBot }) => {
           </div>
           {/* Expand option */}
           <div className="expand-option">
-            <span>Want to increase the window size?</span>
-            <button onClick={handleExpand}>{isExpanded ? "Reduce" : "Expand"}</button>
+           
+            <button onClick={handleExpand}>{isExpanded ? "Reduce Window" : "Expand Window"}</button>
           </div>
         </div>
       </div>
