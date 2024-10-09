@@ -2,28 +2,37 @@ import React, { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 import { AuthContext } from './AuthContextProvider';
-import modalImg from '../assets/img/modalImg.png';
+import modalStart from '../assets/img/modalImg.png';
+import { FiUser, FiLock } from 'react-icons/fi';
 import './modal.css';
 
 Modal.setAppElement('#root');
 
+// Styled Components
 const ModalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative; /* To position the close button absolutely */
+  background: linear-gradient(135deg, #f5f7fa 30%, #c3cfe2 100%);
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  height: 420px;
 `;
 
 const CloseDiv = styled.div`
-   position: absolute;
-  top: -20px;
-  right: -10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
-  transition: transform 0.2s;
   font-size: 1.5rem;
+  color: #ff6b6b;
 
   &:hover {
-      transform: rotate(90deg);
+    transform: rotate(90deg);
+    transition: transform 0.3s;
   }
 `;
 
@@ -31,41 +40,67 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+  margin-top: 20px;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+  margin-bottom: 15px;
 `;
 
 const Input = styled.input`
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 15px 40px;
+  border: 2px solid #007bff;
+  border-radius: 30px;
   font-size: 1rem;
-`;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: #ffffff;
 
-const Button = styled.button`
-  padding: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-
-  &:hover {
-    background: #0056b3;
+  &:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
   }
 `;
 
-const ToggleButton = styled.button`
-  background: none;
-  border: none;
+const Icon = styled.div`
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #007bff;
+`;
+
+const Button = styled.button`
+  padding: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
-  margin-top: 10px;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
 
   &:hover {
-    text-decoration: underline;
+    background: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const ToggleLink = styled.span`
+  color: #007bff;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-decoration: underline;
+
+  &:hover {
+    color: #0056b3;
   }
 `;
 
@@ -75,6 +110,15 @@ const ErrorMessage = styled.p`
   font-size: 0.9rem;
 `;
 
+const ImageWrapper = styled.div`
+   width: 70%;
+    height: auto;
+    max-height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 40px;
+`;
+
 const AuthModal = ({ isOpen, onRequestClose }) => {
   const { register, login } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
@@ -82,14 +126,12 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  // Reset form fields and error message when modal opens or switches between login/register
   useEffect(() => {
     setUsername('');
     setPassword('');
     setError('');
   }, [isOpen, isLogin]);
 
-  // Reset to login form when modal opens
   useEffect(() => {
     setIsLogin(true);
   }, [isOpen]);
@@ -98,13 +140,12 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
     e.preventDefault();
     try {
       await login(username, password);
-      // Close the modal on successful login
       onRequestClose();
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setError('Invalid username or password. Please try again.'); // Handle 401 Unauthorized error
+        setError('Invalid username or password. Please try again.');
       } else {
-        setError('An error occurred. Please try again later.'); // Handle other errors
+        setError('An error occurred. Please try again later.');
       }
     }
   };
@@ -113,23 +154,19 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
     e.preventDefault();
     try {
       await register(username, password);
-      // Close the modal on successful registration
       onRequestClose();
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
         if (error.response.status === 400) {
-          setError('Username already exists. ');
+          setError('Username already exists.');
         } else if (error.response.status === 401) {
           setError('Invalid username or password. Please try again.');
         } else {
           setError('Registration failed. Please try again later.');
         }
       } else if (error.request) {
-        // The request was made but no response was received
         setError('No response from server. Please try again later.');
       } else {
-        // Something else happened in making the request that triggered an error
         setError(error.message);
       }
     }
@@ -137,9 +174,9 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
-    setUsername(''); // Reset username field
-    setPassword(''); // Reset password field
-    setError(''); // Clear any existing errors
+    setUsername('');
+    setPassword('');
+    setError('');
   };
 
   return (
@@ -152,12 +189,15 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
     >
       <ModalWrapper>
         <CloseDiv onClick={onRequestClose}>&times;</CloseDiv>
-        <img src={modalImg} alt="Modal Image" className="modal-image" />
-        <h4 className="modal-h4">
-          {isLogin ? 'Login' : 'Register'}
-        </h4>
+     <ImageWrapper>
+          <img src={modalStart} alt="Modal Visual" />
+          </ImageWrapper>
+        
         <Form onSubmit={isLogin ? handleLogin : handleRegister}>
-          <div className="inputdata">
+          <InputWrapper>
+            <Icon>
+              <FiUser />
+            </Icon>
             <Input
               type="text"
               placeholder="Username"
@@ -165,6 +205,11 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
               onChange={(e) => setUsername(e.target.value)}
               required
             />
+          </InputWrapper>
+          <InputWrapper>
+            <Icon>
+              <FiLock />
+            </Icon>
             <Input
               type="password"
               placeholder="Password"
@@ -172,13 +217,13 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </div>
+          </InputWrapper>
           <Button type="submit">{isLogin ? 'Login' : 'Register'}</Button>
         </Form>
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <ToggleButton onClick={handleToggle}>
+        <ToggleLink onClick={handleToggle}>
           {isLogin ? 'Need an account? Register' : 'Already have an account? Login'}
-        </ToggleButton>
+        </ToggleLink>
       </ModalWrapper>
     </Modal>
   );

@@ -13,7 +13,7 @@
     max-width: 100%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 1000; /* Ensure the modal appears on top */
-    height: 450px;
+    height: 470px;
   }
   
   
@@ -84,7 +84,7 @@
 
 
   .modal-image {
-    width: 60%;
+    width: 30%;
     height: auto;
     max-height: 40px;
     object-fit: cover;
