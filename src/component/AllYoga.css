@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 .allyoga-page {
-    background: linear-gradient(to bottom, #fefefe, #ffffff);
+    background: linear-gradient(to bottom, #fefefe, #c9c29b);
     min-height: 100vh;
 }
 
@@ -61,12 +61,13 @@
 .allyoga-pose-card {
     background-color: #f9f9f9; /* Add a background color to the card */
     border-radius: 8px; /* Optional: Add rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+    box-shadow: 0 10px 30px #3d3921(0, 0, 0, 0.5); /* Scattered shadow effect */
     cursor: pointer; /* Change cursor to pointer on hover */
     transition: transform 0.2s; /* Smooth scaling effect */
     width: 100%; /* Make the card take the full width of the grid cell */
     max-width: 250px; /* Set a max width for the card */
     text-align: center; /* Center text in the card */
+    
 }
 
 @keyframes fadeInZoom {
@@ -93,6 +94,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+  
 }
 
 .allyoga-pose-image {

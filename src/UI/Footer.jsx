@@ -12,7 +12,7 @@ const Footer = () => {
                             <div className="logo__img">
                                 <img src={logo} alt="PeachPath Logo" />
                             </div>
-                            <h2>PeachPath</h2>
+                            <h2>MindfulMove</h2>
                         </div>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
