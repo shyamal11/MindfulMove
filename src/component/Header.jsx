@@ -83,7 +83,7 @@ const Header = ({ toggleBot }) => {
               <div className="logo__img">
                 <img src={roundImage} alt="Health and Fitness Logo" />
               </div>
-              <h2>PeacePath</h2>
+              <h2>MindfulMove</h2>
             </div>
             <div className="navigation">
               <ul className="menu">
