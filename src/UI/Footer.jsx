@@ -15,10 +15,10 @@ const Footer = () => {
                             <h2>MindfulMove</h2>
                         </div>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Blanditiis itaque fugit nam mollitia nulla soluta.
+                        Enhance your mental well-being with tailored assessments and personalized growth strategies.
                         </p>
                     </div>
+                    
                     <div className="footer__box">
                         <h4 className="footer__title">Company</h4>
                         <ul className="footer__links">
@@ -62,7 +62,7 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <p className="copyright">Copyright - {year} developed by Rohan. All rights reserved.</p>
+                <p className="copyright">Copyright @MindfulMove. All rights reserved.</p>
             </div>
         </footer>
     );
