@@ -6,7 +6,7 @@ const Start = () => {
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleGetStarted = () => {
-    navigate('/yoga'); // Use navigate instead of window.open
+    navigate('/all-yoga'); // Use navigate instead of window.open
   };
 
   return (
