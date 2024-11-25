@@ -195,9 +195,7 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
         
         <Form onSubmit={isLogin ? handleLogin : handleRegister}>
           <InputWrapper>
-            <Icon>
-              <FiUser />
-            </Icon>
+            
             <Input
               type="text"
               placeholder="Username"
@@ -207,9 +205,7 @@ const AuthModal = ({ isOpen, onRequestClose }) => {
             />
           </InputWrapper>
           <InputWrapper>
-            <Icon>
-              <FiLock />
-            </Icon>
+           
             <Input
               type="password"
               placeholder="Password"
