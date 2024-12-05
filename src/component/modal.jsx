@@ -3,7 +3,6 @@ import Modal from 'react-modal';
 import styled from 'styled-components';
 import { AuthContext } from './AuthContextProvider';
 import modalStart from '../assets/img/modalImg.png';
-import { FiUser, FiLock } from 'react-icons/fi';
 import './modal.css';
 
 Modal.setAppElement('#root');
@@ -64,13 +63,7 @@ const Input = styled.input`
   }
 `;
 
-const Icon = styled.div`
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #007bff;
-`;
+
 
 const Button = styled.button`
   padding: 15px;
