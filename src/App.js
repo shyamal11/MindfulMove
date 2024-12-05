@@ -103,7 +103,7 @@ function App() {
             {!showBot && (
               <div className="ask-doctor-gif">
                 <img
-                  src={require('./assets/img/turing-test.gif')} // Replace with your GIF URL
+                  src={require('./assets/img/output-onlinegiftools.gif')} // Replace with your GIF URL
                   alt="AI Animation"
                   className="ask-doctor-gif"
 

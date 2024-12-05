@@ -1,4 +1,8 @@
+
+
 import React, { useState, useRef, useEffect } from "react";
+
+import bot from '../assets/img/bot-10-2-512.png'
 
 
 const Bot = ({ isOpen, toggleBot }) => {
@@ -8,40 +12,74 @@ const Bot = ({ isOpen, toggleBot }) => {
   const [isExpanded, setIsExpanded] = useState(false); // State to track if the bot window is expanded
   const messagesEndRef = useRef(null);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (input.trim() === "") return;
 
     const userMessage = {
-      sender: "user",
-      text: input,
+        sender: "user",
+        text: input,
     };
 
+    // Update the message state with the user's message
     setMessages((prevMessages) => [...prevMessages, userMessage]);
     setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
-      const botMessage = {
-        sender: "bot",
-        text: getBotResponse(input),
-      };
-      setMessages((prevMessages) => [...prevMessages, botMessage]);
-      setIsTyping(false);
-    }, 1000); // Simulate bot typing for 1 second
-  };
+    try {
+        // Fetch the bot's response from OpenAI API
+        const botResponseText = await fetchOpenAIResponse(input);
 
-  const getBotResponse = (message) => {
-    switch (message.toLowerCase()) {
-      case "hello":
-        return "Hi there! How can I assist you today?";
-      case "how are you?":
-        return "I'm just a bot, but I'm here to help!";
-      case "what can you do?":
-        return "I can answer your questions and help you with your queries.";
-      default:
-        return "I'm sorry, I didn't understand that. Can you please rephrase?";
+        const botMessage = {
+            sender: "bot",
+            text: botResponseText,
+        };
+
+        // Update the message state with the bot's response
+        setMessages((prevMessages) => [...prevMessages, botMessage]);
+    } catch (error) {
+        console.error("Error fetching response from OpenAI:", error);
+
+        // Add an error message if the API call fails
+        const errorMessage = {
+            sender: "bot",
+            text: "Sorry, I couldn't process your request. Please try again later.",
+        };
+        setMessages((prevMessages) => [...prevMessages, errorMessage]);
+    } finally {
+        setIsTyping(false);
     }
-  };
+};
+
+// Function to fetch OpenAI response
+const fetchOpenAIResponse = async (userInput) => {
+  const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+    const apiUrl = "https://api.openai.com/v1/chat/completions";
+
+    const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini", // Specify the OpenAI model
+            messages: [
+              { 
+                  role: "system", 
+                  content: "You are a virtual doctor providing initial medical guidance and advice based on user input. Always remind users to consult a licensed medical professional for definitive diagnosis and treatment."
+              },
+              { role: "user", content: userInput },
+          ],
+          max_tokens: 300,
+          temperature: 0.5, // Lower temperature for more factual responses
+      }),
+  });
+
+
+    const data = await response.json();
+    return data.choices[0]?.message?.content || "I'm sorry, I couldn't process that.";
+};
+
 
   useEffect(() => {
     if (isOpen) {
@@ -64,8 +102,8 @@ const Bot = ({ isOpen, toggleBot }) => {
       <div className={`bot-window ${isOpen ? 'open' : ''} ${isExpanded ? 'expanded' : ''}`}>
         <div className="bot-header">
           <span className="bot-title">
-            <img src="https://shyamal11.github.io/backend-innerBalanceHub/assets/img/istockphoto-1073043572-612x612.jpg" alt="bot logo" />
-            Chatbot
+            <img src={bot} alt="bot logo" />
+            Hi! How can I help you?
           </span>
           <button className="close-button" onClick={handleCloseBot}>
             &times;
